@@ -9,10 +9,10 @@ flowchart TD
     %% Bottom Navbar Navigation
     AppStart --> Navbar["Bottom Navbar"]
     Navbar --> Beranda
-    Navbar --> Anak["Anak (Children) - CHILD-US2"]
-    Navbar --> Ahli["Ahli (Doctors) - Story 1 in DRIN EPIC"]
+    Navbar --> Anak["Anak (Children) - ENTR-US2"]
+    Navbar --> Ahli["Ahli (Doctors) - DRIN-US1"]
     Navbar --> Riwayat["Riwayat (History) - HIST-US1"]
-    Navbar --> Profil["Profil (Profile) - Story 1 in PRFL EPIC"]
+    Navbar --> Profil["Profil (Profile) - PRFL-US1"]
     
     %% Beranda Tab (Dashboard)
     Beranda --> ConsultHistory["Consultation Widget - CONSULT-US1"]
@@ -40,7 +40,7 @@ flowchart TD
     
     %% Profil Tab (Profile)
     Profil --> ProfileView["Profile & Settings View"]
-    ProfileView --> EditProfile["Edit Profile - Story 1 in PRFL EPIC"]
+    ProfileView --> EditProfile["Edit Profile - PRFL-US1"]
     ProfileView --> Settings["Access Settings (Notifications, Language, etc.)"]
     
     %% Consultation paths (from Dashboard widget)
@@ -127,7 +127,7 @@ flowchart TD
         Dashboard --> CompletedConsultWidget["Completed Consultation Widget"]
         CompletedConsultWidget --> RestartBtnDash["Restart Session Button - CONSULT-US5"]
         RiwayatTab["Riwayat Tab"] --> CompletedConsultHist["Completed Consultation in History"]
-        CompletedConsultHist --> RestartBtnHist["Restart Session Button - Story 3 HSTR EPIC"]
+        CompletedConsultHist --> RestartBtnHist["Restart Session Button - HIST-US1"]
         RestartBtnDash --> CheckAvail{"Check Doctor Availability"}
         RestartBtnHist --> CheckAvail
         CheckAvail -- "Yes" --> InitiateRestart["Initiate New Session with Same Doctor"]

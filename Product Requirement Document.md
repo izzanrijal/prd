@@ -58,7 +58,7 @@ A first-time user downloads the AhliAnak app and goes through 3–5 onboarding s
 
 The primary navigation is handled by a bottom navbar with five tabs: Beranda (Dashboard), Anak (Children Profiles), Ahli (Doctor Discovery), Riwayat (Consultation History), and Profil (User Profile & Settings).
 
-From the Beranda (Dashboard), users can view 1-2 recent consultations and can start a new consultation. To begin a new consultation, the user is directed to the Ahli (Doctor Discovery) screen to select a pediatrician based on their specialty, availability, and other filters. After selecting a doctor, she proceeds to payment via Flip.id. 
+From the Beranda (Dashboard), users can view 1-2 recent consultations (or all active consultation) and can start a new consultation for the recent non-active one. To begin a new consultation, the user is directed to the Ahli (Doctor Discovery) screen to select a pediatrician based on their specialty, availability, and other filters. After selecting a doctor, she proceeds to payment via Flip.id. 
 
 Once payment is confirmed, the user is asked whether this consultation is regarding a specific child (and must select which child) or if it's about general parenting. Then she can record a voice note describing her health concern.
 
