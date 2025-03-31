@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AhliAnak - Children Management (Anak)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+            color: #000000;
+        }
+        .phone-frame {
+            width: 375px;
+            height: 812px;
+            border: 1px solid #e2e8f0;
+            border-radius: 40px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            background: white;
+            margin: 2rem auto;
+        }
+        .header-gradient {
+            background: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-fFJP51CH95RYFlsuJTY9o2pl7FahY1.png');
+            background-size: cover;
+            background-position: center;
+        }
+        .card {
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        .child-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+            object-fit: cover;
+        }
+        .avatar-placeholder {
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 24px;
+        }
+        .avatar-1 {
+            background: linear-gradient(135deg, #FF8DAA 0%, #FF6B8B 100%);
+            color: white;
+        }
+        .avatar-2 {
+            background: linear-gradient(135deg, #6CCEFF 0%, #4AAFFD 100%);
+            color: white;
+        }
+        .avatar-3 {
+            background: linear-gradient(135deg, #A78BFA 0%, #8B5CF6 100%);
+            color: white;
+        }
+        .add-child-btn {
+            background: linear-gradient(135deg, #004AAD 0%, #0060DB 100%);
+            box-shadow: 0 4px 10px rgba(0, 74, 173, 0.25);
+            border-radius: 12px;
+            color: white;
+            font-size: 14px;
+            padding: 12px 20px;
+        }
+        .health-tag {
+            background-color: #F4F6F8;
+            color: #000000;
+            border-radius: 4px;
+            font-size: 10px;
+            padding: 2px 6px;
+            margin-right: 4px;
+            margin-bottom: 4px;
+            display: inline-block;
+        }
+        .health-tag.allergy {
+            background-color: #FECACA;
+            color: #991B1B;
+        }
+        .health-tag.vaccine {
+            background-color: #BFDBFE;
+            color: #1E40AF;
+        }
+        .health-tag.milestone {
+            background-color: #C7D2FE;
+            color: #3730A3;
+        }
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            fill: #8896A6;
+            margin: 0 auto;
+        }
+        .nav-item.active .nav-icon {
+            fill: #004AAD;
+        }
+        .nav-item.active .nav-text {
+            color: #004AAD;
+            font-weight: 500;
+        }
+        .nav-text {
+            font-size: 12px;
+            color: #8896A6;
+            margin-top: 4px;
+        }
+        .edit-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background-color: #F4F6F8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .consultation-count {
+            font-size: 12px;
+            color: #8896A6;
+        }
+        .age-weight {
+            font-size: 12px;
+            color: #8896A6;
+            margin-top: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-frame">
+        <!-- Header -->
+        <div class="header-gradient p-6">
+            <h1 class="text-xl font-bold text-white">Anak</h1>
+            <p class="text-white text-opacity-80 text-sm">Kelola profil anak Anda</p>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="p-4 overflow-y-auto h-[680px]">
+            <!-- Add Child Button -->
+            <button class="add-child-btn w-full flex items-center justify-center mb-6">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                </svg>
+                Tambah Anak Baru
+            </button>
+            
+            <!-- Child Cards -->
+            <div class="space-y-4">
+                <!-- Child 1 -->
+                <div class="card bg-white p-4">
+                    <div class="flex justify-between items-start mb-3">
+                        <div class="flex">
+                            <div class="avatar-placeholder avatar-1 mr-4">AR</div>
+                            <div>
+                                <div class="flex items-center">
+                                    <h3 class="font-medium text-base">Aira Ramadhani</h3>
+                                    <button class="edit-btn ml-2">
+                                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <p class="age-weight">2 tahun 3 bulan • 12.5 kg</p>
+                                <div class="consultation-count mt-1">8 konsultasi</div>
+                            </div>
+                        </div>
+                        <div class="text-xs bg-green-100 text-green-800 px-2 py-0.5 rounded-full">Aktif</div>
+                    </div>
+                    
+                    <div class="mt-3">
+                        <div class="health-tag allergy">Alergi Susu</div>
+                        <div class="health-tag allergy">Alergi Telur</div>
+                        <div class="health-tag vaccine">Vaksin Lengkap</div>
+                        <div class="health-tag milestone">Perkembangan Normal</div>
+                    </div>
+                    
+                    <div class="flex justify-between items-center mt-4">
+                        <div class="text-xs text-gray-500">Terakhir diperbarui: 2 hari yang lalu</div>
+                        <button class="text-xs text-[#004AAD] font-medium flex items-center">
+                            Lihat Detail
+                            <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Child 2 -->
+                <div class="card bg-white p-4">
+                    <div class="flex justify-between items-start mb-3">
+                        <div class="flex">
+                            <div class="avatar-placeholder avatar-2 mr-4">BM</div>
+                            <div>
+                                <div class="flex items-center">
+                                    <h3 class="font-medium text-base">Bayu Mahendra</h3>
+                                    <button class="edit-btn ml-2">
+                                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <p class="age-weight">4 tahun 1 bulan • 16.8 kg</p>
+                                <div class="consultation-count mt-1">12 konsultasi</div>
+                            </div>
+                        </div>
+                        <div class="text-xs bg-green-100 text-green-800 px-2 py-0.5 rounded-full">Aktif</div>
+                    </div>
+                    
+                    <div class="mt-3">
+                        <div class="health-tag">Asma Ringan</div>
+                        <div class="health-tag vaccine">Vaksin Lengkap</div>
+                        <div class="health-tag milestone">Perkembangan Normal</div>
+                    </div>
+                    
+                    <div class="flex justify-between items-center mt-4">
+                        <div class="text-xs text-gray-500">Terakhir diperbarui: 1 minggu yang lalu</div>
+                        <button class="text-xs text-[#004AAD] font-medium flex items-center">
+                            Lihat Detail
+                            <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Child 3 -->
+                <div class="card bg-white p-4">
+                    <div class="flex justify-between items-start mb-3">
+                        <div class="flex">
+                            <div class="avatar-placeholder avatar-3 mr-4">KA</div>
+                            <div>
+                                <div class="flex items-center">
+                                    <h3 class="font-medium text-base">Kayla Azzahra</h3>
+                                    <button class="edit-btn ml-2">
+                                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <p class="age-weight">8 bulan • 7.2 kg</p>
+                                <div class="consultation-count mt-1">5 konsultasi</div>
+                            </div>
+                        </div>
+                        <div class="text-xs bg-green-100 text-green-800 px-2 py-0.5 rounded-full">Aktif</div>
+                    </div>
+                    
+                    <div class="mt-3">
+                        <div class="health-tag">ASI Eksklusif</div>
+                        <div class="health-tag vaccine">Vaksin Parsial</div>
+                        <div class="health-tag milestone">Perkembangan Normal</div>
+                    </div>
+                    
+                    <div class="flex justify-between items-center mt-4">
+                        <div class="text-xs text-gray-500">Terakhir diperbarui: 3 hari yang lalu</div>
+                        <button class="text-xs text-[#004AAD] font-medium flex items-center">
+                            Lihat Detail
+                            <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Tips Card -->
+                <div class="card bg-white p-4 border border-blue-100">
+                    <div class="flex items-start">
+                        <div class="bg-blue-50 p-2 rounded-lg mr-3">
+                            <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-medium text-sm">Tips Profil Anak</h3>
+                            <p class="text-xs text-gray-600 mt-1">Selalu perbarui berat badan dan tinggi anak secara berkala untuk memantau pertumbuhan. Dokter akan memberikan saran yang lebih akurat dengan data terbaru.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Navigation -->
+        <div class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-around py-3">
+            <div class="nav-item flex flex-col items-center">
+                <svg class="nav-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                </svg>
+                <span class="nav-text">Beranda</span>
+            </div>
+            <div class="nav-item active flex flex-col items-center">
+                <svg class="nav-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 12c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-4.5 6v-6.5H6V9c0-1.66 1.34-3 3-3h6c1.66 0 3 1.34 3 3v2.5h-1.5V15h-9z"/>
+                </svg>
+                <span class="nav-text">Anak</span>
+            </div>
+            <div class="nav-item flex flex-col items-center">
+                <svg class="nav-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 3H5c-1.1 0-1.99.9-1.99 2L3 19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 11h-4v4h-4v-4H6v-4h4V6h4v4h4v4z"/>
+                </svg>
+                <span class="nav-text">Ahli</span>
+            </div>
+            <div class="nav-item flex flex-col items-center">
+                <svg class="nav-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.25 2.52.77-1.28-3.52-2.09V8z"/>
+                </svg>
+                <span class="nav-text">Riwayat</span>
+            </div>
+            <div class="nav-item flex flex-col items-center">
+                <svg class="nav-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                </svg>
+                <span class="nav-text">Profil</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

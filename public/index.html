@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AhliAnak - UI Design</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #004AAD 0%, #6CCEFF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .frame-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-4xl font-bold mb-2 gradient-text text-center">AhliAnak UI Design</h1>
+        <p class="text-center text-gray-600 mb-8">Dashboard (Beranda) Design</p>
+        
+        <div class="frame-container">
+            <div class="flex flex-col items-center">
+                <h2 class="text-lg font-semibold mb-4">Dashboard with Consultations</h2>
+                <iframe src="UI.html" width="375" height="812" frameborder="0"></iframe>
+            </div>
+            
+            <div class="flex flex-col items-center">
+                <h2 class="text-lg font-semibold mb-4">Dashboard Empty State</h2>
+                <iframe src="UI_empty_state.html" width="375" height="812" frameborder="0"></iframe>
+            </div>
+        </div>
+        
+        <div class="mt-16">
+            <h2 class="text-2xl font-bold mb-4 gradient-text">Design Documentation</h2>
+            
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h3 class="text-xl font-semibold mb-3">Color Palette</h3>
+                <div class="flex flex-wrap gap-4">
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 rounded-md" style="background: #004AAD"></div>
+                        <span class="text-sm mt-2">Deep Blue</span>
+                        <span class="text-xs text-gray-500">#004AAD</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 rounded-md" style="background: #6CCEFF"></div>
+                        <span class="text-sm mt-2">Sky Blue</span>
+                        <span class="text-xs text-gray-500">#6CCEFF</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 rounded-md" style="background: #FF8DAA"></div>
+                        <span class="text-sm mt-2">Coral Pink</span>
+                        <span class="text-xs text-gray-500">#FF8DAA</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 rounded-md" style="background: #FFFFFF; border: 1px solid #E2E8F0"></div>
+                        <span class="text-sm mt-2">White</span>
+                        <span class="text-xs text-gray-500">#FFFFFF</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 rounded-md" style="background: #F4F6F8"></div>
+                        <span class="text-sm mt-2">Light Gray</span>
+                        <span class="text-xs text-gray-500">#F4F6F8</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 rounded-md" style="background: #002F6C"></div>
+                        <span class="text-sm mt-2">Dark Navy</span>
+                        <span class="text-xs text-gray-500">#002F6C</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 rounded-md" style="background: #6DDC9A"></div>
+                        <span class="text-sm mt-2">Success</span>
+                        <span class="text-xs text-gray-500">#6DDC9A</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 rounded-md" style="background: #F7C948"></div>
+                        <span class="text-sm mt-2">Warning</span>
+                        <span class="text-xs text-gray-500">#F7C948</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 rounded-md" style="background: #F55C47"></div>
+                        <span class="text-sm mt-2">Error</span>
+                        <span class="text-xs text-gray-500">#F55C47</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h3 class="text-xl font-semibold mb-3">Dashboard Components</h3>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li><strong>Header Section</strong>: Gradient background with user greeting and notifications icon</li>
+                    <li><strong>Child Avatars</strong>: Horizontal scrollable row of child profiles with an option to add more</li>
+                    <li><strong>Consultation Widget</strong>: Displays 1-2 recent consultations with status indicators (Active, Waiting Response, Completed)</li>
+                    <li><strong>Blog & FAQ Section</strong>: Horizontally scrollable cards featuring age-specific content based on children's profiles</li>
+                    <li><strong>New Consultation Button</strong>: Prominent CTA for starting a new consultation</li>
+                    <li><strong>Empty State</strong>: Informative guidance for first-time users with no consultations yet</li>
+                    <li><strong>Bottom Navigation</strong>: Five tabs for Beranda, Anak, Ahli, Riwayat, and Profil sections</li>
+                </ul>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-semibold mb-3">Design Principles Applied</h3>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li><strong>Elegant Minimalism</strong>: Clean layout with ample white space and focused elements</li>
+                    <li><strong>Refreshing Gradient Colors</strong>: Soft gradients using the brand palette for warmth and professionalism</li>
+                    <li><strong>Clear Information Hierarchy</strong>: Sectioned content with clear headers and supportive visuals</li>
+                    <li><strong>Refined Rounded Corners</strong>: Consistent card and button styling with 12px border radius</li>
+                    <li><strong>Functional Design</strong>: Focused on core functionalities with intuitive navigation patterns</li>
+                    <li><strong>Immersive Experience</strong>: Smooth transitions between content sections with clear visual cues</li>
+                    <li><strong>Comfortable Proportions</strong>: Balanced spacing and sizing of UI elements for easy interaction</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
