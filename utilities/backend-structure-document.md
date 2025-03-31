@@ -268,6 +268,14 @@ The AhliAnak backend integrates with several external services:
   - Transaction reconciliation and receipt generation
   - Error handling for failed or interrupted payments
 
+- **Resend API for Transactional Emails:**
+  - Email service implementation for transactional communications
+  - HTML email template rendering with dynamic content
+  - Email delivery status tracking and error handling
+  - Webhook integration for email event processing (opens, clicks, bounces)
+  - Localization support for email content in multiple languages
+  - Email sending queue with retry mechanism for failed deliveries
+
 ## 8. Monitoring and Maintenance
 
 The AhliAnak backend includes comprehensive monitoring and maintenance protocols:
@@ -292,6 +300,7 @@ The AhliAnak backend includes comprehensive monitoring and maintenance protocols
   - Standardized error responses across all endpoints
   - Comprehensive error logging with context
   - Critical error alerting system
+  - Email delivery failure monitoring and recovery processes
 
 ## 9. Conclusion and Overall Backend Summary
 
@@ -301,6 +310,7 @@ The AhliAnak backend is thoughtfully structured to support a mobile platform tha
 - **Sophisticated AI integration** with OpenAI for summarization and ElevenLabs for voice-to-text transcription.
 - **Robust database schema** designed to efficiently manage user profiles, child health data, consultations, and payments.
 - **Secure payment processing** via Flip.id with proper transaction reconciliation.
+- **Reliable email communications system** via Resend API for transactional emails and user engagement.
 - **Comprehensive security measures** appropriate for a healthcare application handling sensitive information.
 - **Real-time capabilities** enabling responsive chat interfaces for mother-doctor interactions.
 - **Monitoring and maintenance protocols** ensuring reliable operation and performance.

@@ -120,6 +120,7 @@ Within each child's profile (accessible via the Anak tab or dashboard avatars), 
 #### Notifications
 
 - Push & in-app for doctor replies, clarifications
+- Email notifications via Resend API for critical updates
 - Feedback reminders
 - Smart sorting (relevance + timestamp)
 
@@ -142,6 +143,7 @@ Within each child's profile (accessible via the Anak tab or dashboard avatars), 
 
 - Supabase (auth, DB, storage)
 - Flip.id (payment gateway)
+- Resend API (transactional email service)
 
 #### AI Integration
 
@@ -216,3 +218,41 @@ Within each child's profile (accessible via the Anak tab or dashboard avatars), 
 
 - AI may generate too many clarifications
 - Cap on number of follow-ups per consultation to avoid fatigue
+
+### 9. Emailing System
+
+#### Transactional Emails
+
+- **Account Verification and Password Reset**:
+  - Verification emails for new account registration
+  - Secure password reset links with expiration
+  - Branded email templates with localization support
+
+- **Consultation Updates**:
+  - Email notifications for doctor responses
+  - Receipt and payment confirmation emails
+  - Consultation summary emails
+
+- **Engagement Emails**:
+  - Follow-up emails for abandoned consultations
+  - Reminder emails for pending feedback
+  - Periodic health tips based on child age
+
+#### Implementation
+
+- **Resend API Integration**:
+  - Reliable delivery with tracking capabilities
+  - HTML templates with responsive design
+  - Dynamic content insertion for personalization
+  - Support for both Bahasa Indonesia and English
+
+- **Email Preferences**:
+  - Granular control over email notification types
+  - Opt-out options for marketing vs. essential emails
+  - Email frequency management
+
+#### Edge Cases & Error Handling
+
+- Email delivery failure tracking and retry mechanisms
+- Fallback to in-app notifications when email delivery fails
+- Handling of invalid or changed email addresses

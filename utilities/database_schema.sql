@@ -32,7 +32,10 @@ CREATE TABLE public.users (
     push_notification_token TEXT,
     onboarding_completed BOOLEAN DEFAULT FALSE,
     verified_email BOOLEAN DEFAULT FALSE,
-    verified_phone BOOLEAN DEFAULT FALSE
+    verified_phone BOOLEAN DEFAULT FALSE,
+    email_bounced BOOLEAN DEFAULT FALSE,
+    email_bounce_reason TEXT,
+    last_email_activity TIMESTAMPTZ
 );
 
 -- Add encryption for sensitive fields
@@ -619,3 +622,168 @@ VALUES
 
 -- Comment explaining security measures
 COMMENT ON DATABASE postgres IS 'AhliAnak secure database with Row Level Security, encryption for sensitive data, and audit logging';
+
+----------------- EMAIL SYSTEM -----------------
+
+-- Email Templates Table
+CREATE TABLE public.email_templates (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    template_name VARCHAR(100) UNIQUE NOT NULL,
+    subject TEXT NOT NULL,
+    html_content TEXT NOT NULL,
+    text_content TEXT NOT NULL,
+    language_code VARCHAR(5) NOT NULL CHECK (language_code IN ('id', 'en')),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- Email Log Table
+CREATE TABLE private.email_logs (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    user_id UUID REFERENCES public.users(id) ON DELETE SET NULL,
+    email_address TEXT NOT NULL,
+    template_name VARCHAR(100) REFERENCES public.email_templates(template_name),
+    subject TEXT NOT NULL,
+    status VARCHAR(20) NOT NULL CHECK (status IN ('queued', 'sent', 'delivered', 'failed', 'bounced', 'opened', 'clicked')),
+    resend_message_id TEXT,
+    related_entity_type VARCHAR(20),
+    related_entity_id UUID,
+    error_message TEXT,
+    retry_count INTEGER DEFAULT 0,
+    ip_address TEXT,
+    user_agent TEXT,
+    sent_at TIMESTAMPTZ,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- Email Preferences Table
+CREATE TABLE public.email_preferences (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    user_id UUID NOT NULL REFERENCES public.users(id) ON DELETE CASCADE,
+    account_emails BOOLEAN DEFAULT TRUE,
+    consultation_emails BOOLEAN DEFAULT TRUE,
+    payment_emails BOOLEAN DEFAULT TRUE,
+    feedback_emails BOOLEAN DEFAULT TRUE,
+    marketing_emails BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    CONSTRAINT unique_user_email_preferences UNIQUE (user_id)
+);
+
+-- Add email bounce tracking to users table
+ALTER TABLE public.users ADD COLUMN IF NOT EXISTS email_bounced BOOLEAN DEFAULT FALSE;
+ALTER TABLE public.users ADD COLUMN IF NOT EXISTS email_bounce_reason TEXT;
+ALTER TABLE public.users ADD COLUMN IF NOT EXISTS last_email_activity TIMESTAMPTZ;
+
+-- Function to log email sending
+CREATE OR REPLACE FUNCTION log_email_sent(
+    p_user_id UUID,
+    p_email_address TEXT,
+    p_template_name VARCHAR(100),
+    p_subject TEXT,
+    p_resend_message_id TEXT,
+    p_related_entity_type VARCHAR(20),
+    p_related_entity_id UUID
+) RETURNS UUID AS $$
+DECLARE
+    new_log_id UUID;
+BEGIN
+    INSERT INTO private.email_logs (
+        user_id, email_address, template_name, subject, status, 
+        resend_message_id, related_entity_type, related_entity_id, sent_at
+    ) VALUES (
+        p_user_id, p_email_address, p_template_name, p_subject, 'sent',
+        p_resend_message_id, p_related_entity_type, p_related_entity_id, NOW()
+    )
+    RETURNING id INTO new_log_id;
+    
+    -- Update last email activity timestamp
+    IF p_user_id IS NOT NULL THEN
+        UPDATE public.users
+        SET last_email_activity = NOW()
+        WHERE id = p_user_id;
+    END IF;
+    
+    RETURN new_log_id;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- Function to update email status
+CREATE OR REPLACE FUNCTION update_email_status(
+    p_resend_message_id TEXT,
+    p_status VARCHAR(20),
+    p_error_message TEXT DEFAULT NULL
+) RETURNS BOOLEAN AS $$
+DECLARE
+    affected_user_id UUID;
+BEGIN
+    UPDATE private.email_logs
+    SET 
+        status = p_status,
+        error_message = COALESCE(p_error_message, error_message),
+        updated_at = NOW()
+    WHERE resend_message_id = p_resend_message_id
+    RETURNING user_id INTO affected_user_id;
+    
+    -- Handle bounces or failures
+    IF p_status IN ('bounced', 'failed') AND affected_user_id IS NOT NULL THEN
+        UPDATE public.users
+        SET 
+            email_bounced = TRUE,
+            email_bounce_reason = p_error_message,
+            updated_at = NOW()
+        WHERE id = affected_user_id;
+    END IF;
+    
+    RETURN FOUND;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- Create default email preferences for new users
+CREATE OR REPLACE FUNCTION create_default_email_preferences() RETURNS TRIGGER AS $$
+BEGIN
+    INSERT INTO public.email_preferences (user_id)
+    VALUES (NEW.id);
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER create_default_email_preferences_trigger
+AFTER INSERT ON public.users
+FOR EACH ROW EXECUTE FUNCTION create_default_email_preferences();
+
+-- Create RLS policies for email preferences
+ALTER TABLE public.email_templates ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.email_preferences ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY email_templates_read_only ON public.email_templates
+    FOR SELECT USING (true);
+
+CREATE POLICY email_preferences_user_access ON public.email_preferences
+    USING (user_id = auth.uid());
+
+-- Create indexes for email-related tables
+CREATE INDEX idx_email_logs_user_id ON private.email_logs(user_id);
+CREATE INDEX idx_email_logs_status ON private.email_logs(status);
+CREATE INDEX idx_email_logs_resend_message_id ON private.email_logs(resend_message_id);
+CREATE INDEX idx_email_logs_created_at ON private.email_logs(created_at);
+
+-- Insert default email templates
+INSERT INTO public.email_templates (template_name, subject, html_content, text_content, language_code)
+VALUES 
+    ('account_verification_en', 'Verify Your AhliAnak Account', '<h1>Welcome to AhliAnak!</h1><p>Please verify your account by clicking the button below:</p><p><a href="{{verificationLink}}">Verify Account</a></p>', 'Welcome to AhliAnak! Please verify your account by visiting this link: {{verificationLink}}', 'en'),
+    ('account_verification_id', 'Verifikasi Akun AhliAnak Anda', '<h1>Selamat Datang di AhliAnak!</h1><p>Silakan verifikasi akun Anda dengan mengklik tombol di bawah ini:</p><p><a href="{{verificationLink}}">Verifikasi Akun</a></p>', 'Selamat Datang di AhliAnak! Silakan verifikasi akun Anda dengan mengunjungi tautan ini: {{verificationLink}}', 'id'),
+    ('password_reset_en', 'Reset Your AhliAnak Password', '<h1>Password Reset Request</h1><p>Click the button below to reset your password:</p><p><a href="{{resetLink}}">Reset Password</a></p><p>If you did not request this, please ignore this email.</p>', 'Password Reset Request. Click this link to reset your password: {{resetLink}}. If you did not request this, please ignore this email.', 'en'),
+    ('password_reset_id', 'Reset Kata Sandi AhliAnak Anda', '<h1>Permintaan Reset Kata Sandi</h1><p>Klik tombol di bawah ini untuk mereset kata sandi Anda:</p><p><a href="{{resetLink}}">Reset Kata Sandi</a></p><p>Jika Anda tidak meminta ini, abaikan email ini.</p>', 'Permintaan Reset Kata Sandi. Klik tautan ini untuk mereset kata sandi Anda: {{resetLink}}. Jika Anda tidak meminta ini, abaikan email ini.', 'id'),
+    ('doctor_reply_en', 'New Doctor Response on AhliAnak', '<h1>Your Doctor Has Responded</h1><p>The doctor has responded to your consultation. Click below to view:</p><p><a href="{{consultationLink}}">View Consultation</a></p>', 'Your doctor has responded to your consultation. Visit this link to view: {{consultationLink}}', 'en'),
+    ('doctor_reply_id', 'Respon Baru dari Dokter di AhliAnak', '<h1>Dokter Anda Telah Merespon</h1><p>Dokter telah merespon konsultasi Anda. Klik di bawah untuk melihat:</p><p><a href="{{consultationLink}}">Lihat Konsultasi</a></p>', 'Dokter Anda telah merespon konsultasi Anda. Kunjungi tautan ini untuk melihat: {{consultationLink}}', 'id'),
+    ('payment_confirmation_en', 'Payment Confirmation - AhliAnak', '<h1>Payment Confirmed</h1><p>Your payment of {{amount}} has been confirmed. Your consultation is now active.</p><p><a href="{{consultationLink}}">Start Consultation</a></p>', 'Your payment of {{amount}} has been confirmed. Your consultation is now active. Start consultation: {{consultationLink}}', 'en'),
+    ('payment_confirmation_id', 'Konfirmasi Pembayaran - AhliAnak', '<h1>Pembayaran Dikonfirmasi</h1><p>Pembayaran Anda sebesar {{amount}} telah dikonfirmasi. Konsultasi Anda sekarang aktif.</p><p><a href="{{consultationLink}}">Mulai Konsultasi</a></p>', 'Pembayaran Anda sebesar {{amount}} telah dikonfirmasi. Konsultasi Anda sekarang aktif. Mulai konsultasi: {{consultationLink}}', 'id'),
+    ('feedback_request_en', 'Please Share Your Feedback - AhliAnak', '<h1>How Was Your Consultation?</h1><p>We would love to hear about your experience. Please take a moment to provide feedback:</p><p><a href="{{feedbackLink}}">Share Feedback</a></p>', 'How was your consultation? We would love to hear about your experience. Please share your feedback: {{feedbackLink}}', 'en'),
+    ('feedback_request_id', 'Mohon Bagikan Umpan Balik Anda - AhliAnak', '<h1>Bagaimana Konsultasi Anda?</h1><p>Kami ingin mendengar tentang pengalaman Anda. Mohon luangkan waktu untuk memberikan umpan balik:</p><p><a href="{{feedbackLink}}">Bagikan Umpan Balik</a></p>', 'Bagaimana konsultasi Anda? Kami ingin mendengar tentang pengalaman Anda. Mohon bagikan umpan balik Anda: {{feedbackLink}}', 'id');
+
+-- Comment explaining email system
+COMMENT ON TABLE public.email_templates IS 'Stores templates for transactional emails sent via Resend API';
+COMMENT ON TABLE private.email_logs IS 'Logs all email sending activity, delivery status, and tracking for audit and troubleshooting';
+COMMENT ON TABLE public.email_preferences IS 'Stores user preferences for different types of emails';
