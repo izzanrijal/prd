@@ -2,580 +2,571 @@
 
 ## Foundation (System Infrastructure)
 
-- [ ] Step 1: Initialize Next.js project with TypeScript
-  - **Task**: Create a new Next.js project with TypeScript support, configure ESLint, Prettier, and setup basic folder structure
+- [x] Step 1: Initialize React Native project with Expo and TypeScript
+  - **Task**: Set up a React Native project using Expo with TypeScript support, configure basic tooling, and establish folder structure.
   - **Files**:
     - `package.json`: Package dependencies
+    - `app.config.js`: Expo configuration
     - `tsconfig.json`: TypeScript configuration
-    - `.eslintrc.js`: ESLint configuration
-    - `.prettierrc`: Prettier configuration
-    - `.editorconfig`: Editor configuration
+    - `App.tsx`: Root application component
     - `.gitignore`: Git ignore file
-    - `next.config.js`: Next.js configuration
     - `README.md`: Project documentation
+    - Basic `src/` structure (e.g., `Components`, `Screens`, `Navigation`, `Hooks`, `Utils`)
   - **Step Dependencies**: None
-  - **User Instructions**: Run `npx create-next-app@latest ahlianak-web --typescript --eslint` and then set up the additional config files
+  - **User Instructions**: Project initialized using React Native with Expo and TypeScript.
 
-- [ ] Step 2: Set up Supabase integration
+- [x] Step 2: Set up Supabase integration
   - **Task**: Integrate Supabase client for authentication, database, and storage services
   - **Files**:
-    - `src/lib/supabase.ts`: Supabase client configuration
-    - `.env.local`: Environment variables (sample)
+    - `src/lib/supabase.ts` or `src/Config/supabase.ts`: Supabase client configuration
+    - `.env.local` or `.env`: Environment variables
     - `.env.example`: Example environment variables
-    - `src/types/supabase.ts`: Supabase type definitions
+    - `src/Types/supabase.ts`: Supabase type definitions (if generated)
   - **Step Dependencies**: Step 1
-  - **User Instructions**: 
+  - **User Instructions**:
     1. Create a Supabase account at https://supabase.com/
     2. Create a new project in Supabase dashboard
     3. Obtain API keys from the project settings
-    4. Add the keys to your `.env.local` file
+    4. Add the keys to your `.env` file
     5. Install Supabase client with `npm install @supabase/supabase-js`
 
-- [ ] Step 3: Set up Gluestack UI integration
-  - **Task**: Install and configure Gluestack UI components for the application
+- [ ] Step 3: Set up UI Library (e.g., Gluestack UI, NativeWind, Tamagui)
+  - **Task**: Install and configure a UI component library for the application
   - **Files**:
-    - `src/styles/gluestack-ui.config.ts`: Gluestack UI theme configuration
-    - `src/app/providers.tsx`: Provider wrapper for Gluestack UI
-    - `src/styles/theme.ts`: Custom theme extension
+    - `src/Config/ui.config.ts` or similar: UI library theme/configuration (example path)
+    - `App.tsx` or `src/providers.tsx`: Provider wrapper for UI library integration
+    - `src/Config/theme.ts`: Custom theme extension (example path)
   - **Step Dependencies**: Step 1
-  - **User Instructions**: Run `npm install @gluestack-ui/themed`
+  - **User Instructions**: Install chosen UI library (e.g., `npm install @gluestack-ui/themed`, setup NativeWind, etc.)
 
 - [ ] Step 4: Set up database schema in Supabase
   - **Task**: Create database tables and relationships in Supabase as defined in the schema
   - **Files**:
-    - `database/schema.sql`: SQL schema for Supabase
+    - `supabase/migrations/YYYYMMDDHHMMSS_create_schema.sql` or similar: SQL schema (using Supabase migrations)
   - **Step Dependencies**: Step 2
-  - **User Instructions**: 
-    1. Go to the SQL Editor in Supabase dashboard
-    2. Copy the contents of `database/schema.sql` 
-    3. Execute the SQL in the Supabase SQL Editor
+  - **User Instructions**:
+    1. Use Supabase CLI migrations (`supabase migration new <migration_name>`, edit SQL file, `supabase db push`) or apply SQL via Supabase Studio SQL Editor.
 
 - [ ] Step 5: Configure Row Level Security (RLS) policies
   - **Task**: Implement Row Level Security policies for database tables
   - **Files**:
-    - `database/rls-policies.sql`: SQL for RLS policies
+    - `supabase/migrations/YYYYMMDDHHMMSS_add_rls.sql` or similar: SQL for RLS policies (using Supabase migrations)
   - **Step Dependencies**: Step 4
-  - **User Instructions**: 
-    1. Go to the SQL Editor in Supabase dashboard
-    2. Copy the contents of `database/rls-policies.sql`
-    3. Execute the SQL in the Supabase SQL Editor
+  - **User Instructions**:
+    1. Use Supabase CLI migrations or apply SQL via Supabase Studio SQL Editor.
 
 - [ ] Step 6: Set up storage buckets and policies
   - **Task**: Create Supabase storage buckets for voice notes, profile pictures, and receipts with appropriate access policies
   - **Files**:
-    - `database/storage-buckets.sql`: SQL for storage buckets and policies
+    - `supabase/migrations/YYYYMMDDHHMMSS_setup_storage.sql` or similar: SQL for storage buckets and policies (using Supabase migrations)
   - **Step Dependencies**: Step 4
-  - **User Instructions**: 
-    1. Go to the SQL Editor in Supabase dashboard
-    2. Copy the contents of `database/storage-buckets.sql`
-    3. Execute the SQL in the Supabase SQL Editor
-    4. Verify buckets are created in the Storage section of Supabase dashboard
+  - **User Instructions**:
+    1. Use Supabase CLI migrations or apply SQL via Supabase Studio SQL Editor.
+    2. Verify buckets are created in the Storage section of Supabase dashboard
 
-- [ ] Step 7: Create base layout components
-  - **Task**: Create layout components for the application structure
+- [ ] Step 7: Create base layout components and navigation
+  - **Task**: Create layout components and set up main navigation structure (e.g., Stack, Tabs using React Navigation)
   - **Files**:
-    - `src/components/layout/AppLayout.tsx`: Main app layout with navbar
-    - `src/components/layout/AuthLayout.tsx`: Layout for auth pages
-    - `src/components/layout/BottomNavbar.tsx`: Bottom navigation bar
-    - `src/app/layout.tsx`: Root layout with providers
-  - **Step Dependencies**: Step 3
-  - **User Instructions**: None
+    - `src/Navigation/AppNavigator.tsx`: Main app navigator (example)
+    - `src/Navigation/AuthNavigator.tsx`: Navigator for auth screens (example)
+    - `src/Navigation/BottomTabNavigator.tsx`: Bottom tab navigator (example)
+    - `App.tsx`: Root component integrating navigation
+    - `src/Components/Layout/...`: Reusable layout components
+  - **Step Dependencies**: Step 3 (UI library), Step 1 (Requires navigation library)
+  - **User Instructions**: Install React Navigation libraries (`npm install @react-navigation/native @react-navigation/native-stack @react-navigation/bottom-tabs react-native-screens react-native-safe-area-context`)
 
 ## EPIC - Internationalization (INT)
 
-- [ ] Step 8: Configure internationalization with next-intl
-  - **Task**: Set up internationalization support with next-intl for Bahasa Indonesia and English
+- [ ] Step 8: Configure internationalization (e.g., with i18next)
+  - **Task**: Set up internationalization support (e.g., using `i18next` and `react-i18next`) for Bahasa Indonesia and English
   - **Files**:
-    - `src/i18n/settings.ts`: Internationalization configuration
-    - `src/i18n/messages/en.json`: English translations
-    - `src/i18n/messages/id.json`: Indonesian translations
-    - `src/middleware.ts`: Middleware for i18n routing
-    - `next.config.js`: Update with i18n configuration
+    - `src/i18n/config.ts`: i18n configuration
+    - `src/i18n/locales/en.json`: English translations
+    - `src/i18n/locales/id.json`: Indonesian translations
+    - `App.tsx` or `src/providers.tsx`: Integration point for i18n provider
   - **Step Dependencies**: Step 1
-  - **User Instructions**: Run `npm install next-intl`
+  - **User Instructions**: Run `npm install i18next react-i18next expo-localization`
 
 - [ ] Step 9: Implement language switcher component
   - **Task**: Create a language switcher component for the profile settings
   - **Files**:
-    - `src/components/settings/LanguageSwitcher.tsx`: Language switcher component
-    - `src/hooks/useLanguage.ts`: Custom hook for language operations
+    - `src/Components/Settings/LanguageSwitcher.tsx`: Language switcher component
+    - `src/Hooks/useLanguage.ts`: Custom hook for language operations
   - **Step Dependencies**: Step 8
   - **User Instructions**: None
 
 - [ ] Step 10: Create fallback mechanisms for missing translations
-  - **Task**: Implement fallback mechanisms for missing translation keys
+  - **Task**: Implement fallback mechanisms for missing translation keys within i18n config
   - **Files**:
-    - `src/utils/i18n-helpers.ts`: Helper functions for i18n
-    - `src/hooks/useTranslation.ts`: Enhanced translation hook with fallbacks
+    - `src/i18n/config.ts`: Update config with fallback language
+    - `src/Utils/i18n-helpers.ts`: Helper functions for i18n (optional)
+    - `src/Hooks/useTranslation.ts`: Enhanced translation hook (optional, depends on usage)
   - **Step Dependencies**: Step 8
   - **User Instructions**: None
 
 ## EPIC - Authentication & Login (AUTH)
 
-- [ ] Step 11: Create authentication context and hooks
+- [x] Step 11: Create authentication context and hooks
   - **Task**: Create authentication context for managing user authentication state
   - **Files**:
-    - `src/contexts/AuthContext.tsx`: Authentication context provider
-    - `src/hooks/useAuth.ts`: Custom hook for auth operations
-    - `src/types/auth.ts`: Authentication types
+    - `src/Contexts/AuthContext.tsx`: Authentication context provider (example path)
+    - `src/Hooks/useAuth.ts`: Custom hook for auth operations
+    - `src/Types/auth.ts`: Authentication types
   - **Step Dependencies**: Step 2
   - **User Instructions**: None
 
-- [ ] Step 12: Implement sign-up and sign-in components
-  - **Task**: Create components for user registration and login with email/password and Google
+- [x] Step 12: Implement sign-up and sign-in components/screens
+  - **Task**: Create components and screens for user registration and login with email/password and Google
   - **Files**:
-    - `src/components/auth/SignUpForm.tsx`: User registration form
-    - `src/components/auth/SignInForm.tsx`: User login form
-    - `src/components/auth/GoogleAuthButton.tsx`: Google authentication button
-    - `src/app/(auth)/sign-up/page.tsx`: Sign-up page
-    - `src/app/(auth)/sign-in/page.tsx`: Sign-in page
-  - **Step Dependencies**: Step 3, Step 11
-  - **User Instructions**: 
+    - `src/Components/Auth/SignUpForm.tsx`: User registration form component
+    - `src/Components/Auth/SignInForm.tsx`: User login form component
+    - `src/Components/Auth/GoogleAuthButton.tsx`: Google authentication button component
+    - `src/Screens/Auth/SignUpScreen.tsx`: Sign-up screen (example path)
+    - `src/Screens/Auth/SignInScreen.tsx`: Sign-in screen (example path)
+  - **Step Dependencies**: Step 3, Step 11, Step 7 (Navigation)
+  - **User Instructions**:
     1. Enable Email/Password and Google providers in Supabase Auth settings
-    2. Configure redirect URLs in Supabase Auth settings
-    3. For Google auth, set up Google OAuth credentials and add them to Supabase
+    2. Configure redirect URLs / deep linking for native OAuth if needed (e.g., using `expo-web-browser` or `expo-auth-session`)
+    3. For Google auth, set up Google OAuth credentials and add them to Supabase & Expo config (`app.config.js`)
 
-- [ ] Step 13: Implement password reset flow
-  - **Task**: Create components and APIs for password reset functionality
+- [x] Step 13: Implement password reset flow
+  - **Task**: Create components and screens for password reset functionality
   - **Files**:
-    - `src/components/auth/ForgotPasswordForm.tsx`: Password reset request form
-    - `src/components/auth/ResetPasswordForm.tsx`: New password form
-    - `src/app/(auth)/forgot-password/page.tsx`: Forgot password page
-    - `src/app/(auth)/reset-password/page.tsx`: Reset password page
+    - `src/Components/Auth/ForgotPasswordForm.tsx`: Password reset request form component
+    - `src/Components/Auth/ResetPasswordForm.tsx`: New password form component
+    - `src/Screens/Auth/ForgotPasswordScreen.tsx`: Forgot password screen (example path)
+    - `src/Screens/Auth/ResetPasswordScreen.tsx`: Reset password screen (example path)
   - **Step Dependencies**: Step 11, Step 12
   - **User Instructions**: Configure email templates in Supabase Auth settings for password reset
 
-- [ ] Step 14: Create onboarding flow components
+- [ ] Step 14: Create onboarding flow components/screens
   - **Task**: Implement the onboarding screens with intro carousel
   - **Files**:
-    - `src/components/onboarding/OnboardingCarousel.tsx`: Onboarding carousel component
-    - `src/components/onboarding/OnboardingScreen.tsx`: Individual onboarding screen
-    - `src/app/(auth)/onboarding/page.tsx`: Onboarding page
-  - **Step Dependencies**: Step 3, Step 8
-  - **User Instructions**: None
+    - `src/Components/Onboarding/OnboardingCarousel.tsx`: Onboarding carousel component (e.g., using `react-native-swiper` or similar)
+    - `src/Components/Onboarding/OnboardingSlide.tsx`: Individual onboarding slide component
+    - `src/Screens/Onboarding/OnboardingScreen.tsx`: Onboarding screen holding the carousel (example path)
+  - **Step Dependencies**: Step 3, Step 8 (if text is localized)
+  - **User Instructions**: Install a carousel/swiper library if needed.
 
-- [ ] Step 15: Implement auth middleware for protected routes
-  - **Task**: Create middleware for route protection and redirection
+- [ ] Step 15: Implement auth logic for protected routes/screens
+  - **Task**: Implement logic within navigation to handle route protection and redirection based on auth state
   - **Files**:
-    - `src/middleware.ts`: Update with auth protection
-    - `src/app/api/auth/[...nextauth]/route.ts`: NextAuth API route
-  - **Step Dependencies**: Step 11
-  - **User Instructions**: None
+    - `src/Navigation/AppNavigator.tsx` or `src/Navigation/index.tsx`: Conditional rendering of Auth vs Main stacks based on `AuthContext`
+    - `src/Contexts/AuthContext.tsx`: Expose authentication status
+  - **Step Dependencies**: Step 7, Step 11
+  - **User Instructions**: Structure navigators to separate authenticated and unauthenticated flows.
 
 - [ ] Step 16: Implement post-signup profile completion
-  - **Task**: Create components for basic profile completion after signup
+  - **Task**: Create components and screen for basic profile completion after signup
   - **Files**:
-    - `src/components/profile/ProfileCompletionForm.tsx`: Profile completion form
-    - `src/app/(auth)/complete-profile/page.tsx`: Profile completion page
-  - **Step Dependencies**: Step 11
+    - `src/Components/Profile/ProfileCompletionForm.tsx`: Profile completion form component
+    - `src/Screens/Profile/CompleteProfileScreen.tsx`: Profile completion screen (example path)
+  - **Step Dependencies**: Step 11, Step 7 (Navigation)
   - **User Instructions**: None
 
 ## EPIC - Dashboard (DASH)
 
 - [ ] Step 17: Implement bottom navigation bar
-  - **Task**: Create the bottom navbar with 5 tabs as per the design
+  - **Task**: Create the bottom tab navigator with 5 tabs as per the design using React Navigation
   - **Files**:
-    - `src/components/layout/BottomNavbar.tsx`: Bottom navigation bar component
-    - `src/components/layout/NavbarIcon.tsx`: Icon component for navigation items
-    - `src/styles/navbar.css`: Navigation bar styles
+    - `src/Navigation/BottomTabNavigator.tsx`: Bottom navigation bar implementation (example path)
+    - `src/Components/Navigation/TabBarIcon.tsx`: Custom icon component for tabs (example)
   - **Step Dependencies**: Step 7
-  - **User Instructions**: None
+  - **User Instructions**: Configure screens and icons within the Bottom Tab Navigator.
 
-- [ ] Step 18: Create dashboard context and API
-  - **Task**: Create context and API functions for dashboard data
+- [ ] Step 18: Create dashboard context and API/Service
+  - **Task**: Create context and service functions for fetching dashboard data from Supabase
   - **Files**:
-    - `src/contexts/DashboardContext.tsx`: Dashboard context provider
-    - `src/hooks/useDashboard.ts`: Custom hook for dashboard data
-    - `src/services/dashboard.ts`: Dashboard API service
-    - `src/types/dashboard.ts`: Dashboard types
+    - `src/Contexts/DashboardContext.tsx`: Dashboard context provider (example path, optional)
+    - `src/Hooks/useDashboard.ts`: Custom hook for dashboard data (optional)
+    - `src/Services/dashboard.ts`: Dashboard service functions (fetching data from Supabase)
+    - `src/Types/dashboard.ts`: Dashboard types
   - **Step Dependencies**: Step 2, Step 11
-  - **User Instructions**: None
+  - **User Instructions**: Define functions to query necessary Supabase tables (e.g., children, recent consultations).
 
 - [ ] Step 19: Implement child avatars component
   - **Task**: Create component for displaying child avatars on the dashboard
   - **Files**:
-    - `src/components/dashboard/ChildAvatars.tsx`: Child avatars component
-    - `src/hooks/useChildProfiles.ts`: Hook for accessing child profiles
-  - **Step Dependencies**: Step 18
-  - **User Instructions**: None
+    - `src/Components/Dashboard/ChildAvatars.tsx`: Child avatars component
+    - `src/Hooks/useChildProfiles.ts` or fetch logic within component: Hook/logic for accessing child profiles data
+  - **Step Dependencies**: Step 18, Step 23 (Child Data)
+  - **User Instructions**: Fetch user's children profiles and display avatars.
 
 - [ ] Step 20: Implement consultation widget
   - **Task**: Create component for displaying recent consultations on the dashboard
   - **Files**:
-    - `src/components/dashboard/ConsultationWidget.tsx`: Recent consultations widget
-    - `src/components/dashboard/ConsultationCard.tsx`: Consultation card component
-  - **Step Dependencies**: Step 18
-  - **User Instructions**: None
+    - `src/Components/Dashboard/ConsultationWidget.tsx`: Recent consultations widget
+    - `src/Components/Dashboard/ConsultationCard.tsx`: Consultation card component
+  - **Step Dependencies**: Step 18, Step 33 (Consultation Data)
+  - **User Instructions**: Fetch recent consultations and display them.
 
 - [ ] Step 21: Implement blog content widget
   - **Task**: Create component for displaying blog content on the dashboard
   - **Files**:
-    - `src/components/dashboard/BlogContent.tsx`: Blog content widget
-    - `src/components/blog/BlogCard.tsx`: Blog card component
-    - `src/services/blog.ts`: Blog API service
+    - `src/Components/Dashboard/BlogContent.tsx`: Blog content widget
+    - `src/Components/Blog/BlogCard.tsx`: Blog card component
+    - `src/Services/blog.ts`: Blog service functions (fetching data from Supabase/CMS)
   - **Step Dependencies**: Step 18
-  - **User Instructions**: None
+  - **User Instructions**: Fetch blog posts/articles from data source.
 
 - [ ] Step 22: Create new consultation button
-  - **Task**: Implement the button to start a new consultation
+  - **Task**: Implement the button on the dashboard screen to initiate the new consultation flow
   - **Files**:
-    - `src/components/dashboard/NewConsultationButton.tsx`: New consultation button
-    - `src/app/(protected)/page.tsx`: Dashboard page (root route)
-  - **Step Dependencies**: Step 20
-  - **User Instructions**: None
+    - `src/Components/Dashboard/NewConsultationButton.tsx`: New consultation button component
+    - `src/Screens/Dashboard/DashboardScreen.tsx`: Main dashboard screen (example path)
+  - **Step Dependencies**: Step 20, Step 7 (Navigation)
+  - **User Instructions**: Button should navigate to the start of the consultation flow (e.g., child selection or question input).
 
 ## EPIC - Entering Children (ENTR)
 
-- [ ] Step 23: Create child profile context and API
-  - **Task**: Create context and API functions for child profile management
+- [ ] Step 23: Create child profile context and API/Service
+  - **Task**: Create context and service functions for child profile management (CRUD operations via Supabase)
   - **Files**:
-    - `src/contexts/ChildContext.tsx`: Child context provider
-    - `src/hooks/useChild.ts`: Custom hook for child operations
-    - `src/services/child.ts`: Child API service
-    - `src/types/child.ts`: Child types
+    - `src/Contexts/ChildContext.tsx`: Child context provider (example path, optional)
+    - `src/Hooks/useChild.ts`: Custom hook for child operations (optional)
+    - `src/Services/child.ts`: Child service functions (CRUD operations via Supabase)
+    - `src/Types/child.ts`: Child types
   - **Step Dependencies**: Step 2, Step 11
-  - **User Instructions**: None
+  - **User Instructions**: Define functions for creating, reading, updating, deleting child profiles in Supabase.
 
-- [ ] Step 24: Implement child profile form
-  - **Task**: Create form component for adding and editing child profiles
+- [ ] Step 24: Implement child profile form component
+  - **Task**: Create form component for adding and editing child profiles (using e.g., `react-hook-form` or `formik`)
   - **Files**:
-    - `src/components/child/ChildProfileForm.tsx`: Child profile form
-    - `src/utils/validators/childProfile.ts`: Validators for child profile data
+    - `src/Components/Child/ChildProfileForm.tsx`: Child profile form component
+    - `src/Utils/validators/childProfile.ts`: Validators for child profile data (e.g., using `zod`)
   - **Step Dependencies**: Step 23
-  - **User Instructions**: None
+  - **User Instructions**: Implement form fields and validation logic.
 
-- [ ] Step 25: Create child profile card and list
-  - **Task**: Create components for displaying child profiles
+- [ ] Step 25: Create child profile card and list components/screen
+  - **Task**: Create components for displaying child profiles and a screen to list them
   - **Files**:
-    - `src/components/child/ChildProfileCard.tsx`: Child profile card
-    - `src/components/child/ChildProfileList.tsx`: List of child profiles
-    - `src/app/(protected)/anak/page.tsx`: Children page
+    - `src/Components/Child/ChildProfileCard.tsx`: Child profile card component
+    - `src/Components/Child/ChildProfileList.tsx`: List component for child profiles
+    - `src/Screens/Anak/AnakListScreen.tsx`: Screen displaying the list of children (example path)
   - **Step Dependencies**: Step 23
-  - **User Instructions**: None
+  - **User Instructions**: Fetch and display the list of children associated with the user.
 
-- [ ] Step 26: Implement child profile detail page
-  - **Task**: Create the detail page for viewing a child's profile
+- [ ] Step 26: Implement child profile detail screen
+  - **Task**: Create the detail screen for viewing a child's profile and their consultation history
   - **Files**:
-    - `src/app/(protected)/anak/[id]/page.tsx`: Child detail page
-    - `src/components/child/ChildProfileDetail.tsx`: Child profile detail component
-    - `src/components/child/ChildConsultationTimeline.tsx`: Child consultation timeline
-  - **Step Dependencies**: Step 24, Step 25
-  - **User Instructions**: None
+    - `src/Screens/Anak/AnakDetailScreen.tsx`: Child detail screen (example path)
+    - `src/Components/Child/ChildProfileDetail.tsx`: Component showing child details
+    - `src/Components/Child/ChildConsultationTimeline.tsx`: Component showing child consultation timeline
+  - **Step Dependencies**: Step 24, Step 25, Step 33 (Consultation Data)
+  - **User Instructions**: Fetch specific child details and related consultations.
 
-- [ ] Step 27: Create child profile management pages
-  - **Task**: Create pages for adding and editing child profiles
+- [ ] Step 27: Create child profile management screens (Add/Edit)
+  - **Task**: Create screens for adding and editing child profiles, utilizing the `ChildProfileForm`
   - **Files**:
-    - `src/app/(protected)/anak/add/page.tsx`: Add child page
-    - `src/app/(protected)/anak/[id]/edit/page.tsx`: Edit child page
-  - **Step Dependencies**: Step 24
-  - **User Instructions**: None
+    - `src/Screens/Anak/AddAnakScreen.tsx`: Add child screen (example path)
+    - `src/Screens/Anak/EditAnakScreen.tsx`: Edit child screen (example path)
+  - **Step Dependencies**: Step 24, Step 7 (Navigation)
+  - **User Instructions**: Integrate the form component into dedicated screens for add/edit actions.
 
 ## EPIC - Doctor and Initiate Consultation (DRIN)
 
-- [ ] Step 28: Create doctor discovery context and API
-  - **Task**: Create context and API functions for doctor discovery
+- [ ] Step 28: Create doctor discovery context and API/Service
+  - **Task**: Create context and service functions for fetching doctor information from Supabase
   - **Files**:
-    - `src/contexts/DoctorContext.tsx`: Doctor context provider
-    - `src/hooks/useDoctor.ts`: Custom hook for doctor operations
-    - `src/services/doctor.ts`: Doctor API service
-    - `src/types/doctor.ts`: Doctor types
+    - `src/Contexts/DoctorContext.tsx`: Doctor context provider (example path, optional)
+    - `src/Hooks/useDoctor.ts`: Custom hook for doctor operations (optional)
+    - `src/Services/doctor.ts`: Doctor service functions (fetching data from Supabase)
+    - `src/Types/doctor.ts`: Doctor types
   - **Step Dependencies**: Step 2, Step 11
-  - **User Instructions**: None
+  - **User Instructions**: Define functions to query doctor profiles based on criteria.
 
-- [ ] Step 29: Implement doctor card and list components
-  - **Task**: Create components for displaying doctors
+- [ ] Step 29: Implement doctor card and list components/screen
+  - **Task**: Create components for displaying doctors and a screen for the discovery list
   - **Files**:
-    - `src/components/doctor/DoctorCard.tsx`: Doctor card component
-    - `src/components/doctor/DoctorList.tsx`: Doctor list component
-    - `src/app/(protected)/ahli/page.tsx`: Doctor discovery page
+    - `src/Components/Doctor/DoctorCard.tsx`: Doctor card component
+    - `src/Components/Doctor/DoctorList.tsx`: Doctor list component
+    - `src/Screens/Ahli/AhliListScreen.tsx`: Doctor discovery screen (example path)
   - **Step Dependencies**: Step 28
-  - **User Instructions**: None
+  - **User Instructions**: Fetch and display available doctors.
 
 - [ ] Step 30: Create doctor filtering components
-  - **Task**: Implement components for filtering doctors by specialty and availability
+  - **Task**: Implement components for filtering doctors by specialty, availability, and search term
   - **Files**:
-    - `src/components/doctor/SpecialtyFilter.tsx`: Filter component for specialties
-    - `src/components/doctor/AvailabilityFilter.tsx`: Filter component for availability
-    - `src/components/doctor/DoctorSearchInput.tsx`: Search input for doctors
+    - `src/Components/Doctor/SpecialtyFilter.tsx`: Filter component for specialties
+    - `src/Components/Doctor/AvailabilityFilter.tsx`: Filter component for availability
+    - `src/Components/Doctor/DoctorSearchInput.tsx`: Search input for doctors
   - **Step Dependencies**: Step 28
-  - **User Instructions**: None
+  - **User Instructions**: Integrate filtering components with the doctor list fetching logic.
 
-- [ ] Step 31: Implement doctor detail page
-  - **Task**: Create the detail page for viewing a doctor's profile
+- [ ] Step 31: Implement doctor detail screen
+  - **Task**: Create the detail screen for viewing a specific doctor's profile
   - **Files**:
-    - `src/app/(protected)/ahli/[id]/page.tsx`: Doctor detail page
-    - `src/components/doctor/DoctorDetail.tsx`: Doctor detail component
-    - `src/components/doctor/DoctorCredentials.tsx`: Doctor credentials component
+    - `src/Screens/Ahli/AhliDetailScreen.tsx`: Doctor detail screen (example path)
+    - `src/Components/Doctor/DoctorDetail.tsx`: Component showing doctor details
+    - `src/Components/Doctor/DoctorCredentials.tsx`: Component showing doctor credentials
   - **Step Dependencies**: Step 29
-  - **User Instructions**: None
+  - **User Instructions**: Fetch and display detailed information for a selected doctor.
 
 ## EPIC - Starting Question and Chatting (CHAT)
 
-- [ ] Step 32: Set up OpenAI and ElevenLabs API integration
-  - **Task**: Create API client and service functions for AI integrations
+- [ ] Step 32: Set up OpenAI and ElevenLabs API integration (via Backend)
+  - **Task**: Create service functions (calling backend/Supabase Functions) for AI integrations
   - **Files**:
-    - `src/lib/openai.ts`: OpenAI client configuration
-    - `src/lib/elevenlabs.ts`: ElevenLabs client configuration
-    - `src/services/ai.ts`: AI service functions
-    - `src/types/ai.ts`: AI types
+    - `src/Services/ai.ts`: AI service functions (calling backend)
+    - `supabase/functions/openai-handler/index.ts`: Example Supabase Function for OpenAI calls (securely handles API key)
+    - `supabase/functions/elevenlabs-handler/index.ts`: Example Supabase Function for ElevenLabs calls (securely handles API key)
+    - `src/Types/ai.ts`: AI types
   - **Step Dependencies**: Step 1
-  - **User Instructions**: 
+  - **User Instructions**:
     1. Register for OpenAI API access at https://openai.com/
     2. Register for ElevenLabs API access at https://elevenlabs.io/
-    3. Obtain API keys and add them to your `.env.local` file
+    3. Obtain API keys and add them securely as Supabase secrets (`supabase secrets set OPENAI_API_KEY=...`)
+    4. Deploy Supabase Functions (`supabase functions deploy <function_name>`)
 
-- [ ] Step 33: Create consultation context and API
-  - **Task**: Create context and API functions for consultation management
+- [ ] Step 33: Create consultation context and API/Service
+  - **Task**: Create context and service functions for consultation management (CRUD via Supabase)
   - **Files**:
-    - `src/contexts/ConsultationContext.tsx`: Consultation context provider
-    - `src/hooks/useConsultation.ts`: Custom hook for consultation operations
-    - `src/services/consultation.ts`: Consultation API service
-    - `src/types/consultation.ts`: Consultation types
+    - `src/Contexts/ConsultationContext.tsx`: Consultation context provider (example path, optional)
+    - `src/Hooks/useConsultation.ts`: Custom hook for consultation operations (optional)
+    - `src/Services/consultation.ts`: Consultation service functions (CRUD via Supabase)
+    - `src/Types/consultation.ts`: Consultation types
   - **Step Dependencies**: Step 2, Step 11
-  - **User Instructions**: None
+  - **User Instructions**: Define functions for creating, fetching, updating consultations in Supabase.
 
 - [ ] Step 34: Create voice recording components
-  - **Task**: Create components for voice recording and playback
+  - **Task**: Create components for voice recording and playback using `expo-av`
   - **Files**:
-    - `src/components/voice/VoiceRecorder.tsx`: Voice recording component
-    - `src/components/voice/VoicePlayer.tsx`: Voice playback component
-    - `src/components/voice/WaveformVisualizer.tsx`: Audio waveform visualization
-    - `src/hooks/useAudioRecording.ts`: Custom hook for audio recording
-    - `src/hooks/useAudioPlayback.ts`: Custom hook for audio playback
-  - **Step Dependencies**: Step 32
-  - **User Instructions**: None
+    - `src/Components/Voice/VoiceRecorder.tsx`: Voice recording component
+    - `src/Components/Voice/VoicePlayer.tsx`: Voice playback component
+    - `src/Components/Voice/WaveformVisualizer.tsx`: Audio waveform visualization (optional, might require extra library like `react-native-waveform-js`)
+    - `src/Hooks/useAudioRecording.ts`: Custom hook for audio recording logic (using `expo-av`)
+    - `src/Hooks/useAudioPlayback.ts`: Custom hook for audio playback logic (using `expo-av`)
+  - **Step Dependencies**: Step 1 (needs `expo-av`)
+  - **User Instructions**: Install Expo AV: `npx expo install expo-av`. Request microphone permissions.
 
-- [ ] Step 35: Implement transcription and AI summary components
-  - **Task**: Create components for transcription and AI summary generation
+- [ ] Step 35: Implement transcription and AI summary components/screens
+  - **Task**: Create components/screens for voice input, transcription display/edit, and AI summary review
   - **Files**:
-    - `src/components/consultation/TranscriptionEditor.tsx`: Transcription editor component
-    - `src/components/consultation/AISummary.tsx`: AI summary component
-    - `src/components/consultation/ClarifyingQuestions.tsx`: Follow-up questions component
-    - `src/app/(protected)/consultations/new/question/page.tsx`: Voice recording page
-    - `src/app/(protected)/consultations/new/review/page.tsx`: Summary review page
-  - **Step Dependencies**: Step 33, Step 34
-  - **User Instructions**: None
+    - `src/Components/Consultation/TranscriptionEditor.tsx`: Transcription editor component
+    - `src/Components/Consultation/AISummary.tsx`: AI summary display component
+    - `src/Components/Consultation/ClarifyingQuestions.tsx`: Follow-up questions component
+    - `src/Screens/Consultation/New/QuestionScreen.tsx`: Screen for voice recording & initial processing (example path)
+    - `src/Screens/Consultation/New/ReviewScreen.tsx`: Screen for reviewing summary & transcription (example path)
+  - **Step Dependencies**: Step 33, Step 34, Step 32 (AI Services)
+  - **User Instructions**: Integrate recording, playback, and calls to backend AI services.
 
-- [ ] Step 36: Create chat context and API
-  - **Task**: Create context and API functions for chat functionality
+- [ ] Step 36: Create chat context and API/Service (using Supabase Realtime)
+  - **Task**: Create context and service functions for real-time chat functionality using Supabase
   - **Files**:
-    - `src/contexts/ChatContext.tsx`: Chat context provider
-    - `src/hooks/useChat.ts`: Custom hook for chat operations
-    - `src/services/chat.ts`: Chat API service
-    - `src/types/chat.ts`: Chat types
-  - **Step Dependencies**: Step 2, Step 11
-  - **User Instructions**: None
+    - `src/Contexts/ChatContext.tsx`: Chat context provider (example path, manages subscription)
+    - `src/Hooks/useChat.ts`: Custom hook for chat operations (sending messages, subscribing to changes)
+    - `src/Services/chat.ts`: Chat service functions (inserting messages into Supabase)
+    - `src/Types/chat.ts`: Chat types
+  - **Step Dependencies**: Step 2, Step 11, Step 33 (Consultation ID)
+  - **User Instructions**: Enable Supabase Realtime for the chat messages table. Set up RLS policies for chat messages.
 
-- [ ] Step 37: Implement consultation chat components
-  - **Task**: Create components for the consultation chat interface
+- [ ] Step 37: Implement consultation chat components/screen
+  - **Task**: Create components for the consultation chat interface (e.g., using `react-native-gifted-chat` or custom build)
   - **Files**:
-    - `src/components/chat/ChatContainer.tsx`: Chat container component
-    - `src/components/chat/StructuredChatBubble.tsx`: Markdown chat bubble component
-    - `src/components/chat/DoctorResponseCard.tsx`: Doctor response component
-    - `src/lib/markdown.ts`: Markdown rendering utilities
-    - `src/app/(protected)/consultations/[id]/page.tsx`: Consultation chat page
+    - `src/Components/Chat/ChatUI.tsx`: Chat container component (using library or custom)
+    - `src/Components/Chat/MessageBubble.tsx`: Custom chat bubble component (if not using library)
+    - `src/Screens/Consultation/ChatScreen.tsx`: Consultation chat screen (example path)
   - **Step Dependencies**: Step 36
-  - **User Instructions**: Install markdown parser with `npm install react-markdown remark-gfm`
+  - **User Instructions**: Install chat UI library if desired (`npm install react-native-gifted-chat`). Connect UI to chat context/hooks.
 
 ## EPIC - Payment (PAYM)
 
-- [ ] Step 38: Create payment context and API
-  - **Task**: Create context and API functions for payment processing
+- [ ] Step 38: Create payment context and API/Service (Backend Integration)
+  - **Task**: Create context and service functions for payment processing (calling backend/Supabase Functions)
   - **Files**:
-    - `src/contexts/PaymentContext.tsx`: Payment context provider
-    - `src/hooks/usePayment.ts`: Custom hook for payment operations
-    - `src/services/payment.ts`: Payment API service
-    - `src/types/payment.ts`: Payment types
+    - `src/Contexts/PaymentContext.tsx`: Payment context provider (example path, optional)
+    - `src/Hooks/usePayment.ts`: Custom hook for payment operations (optional)
+    - `src/Services/payment.ts`: Payment service functions (calling backend)
+    - `src/Types/payment.ts`: Payment types
   - **Step Dependencies**: Step 2, Step 11
-  - **User Instructions**: None
+  - **User Instructions**: Define frontend functions to trigger backend payment initiation.
 
-- [ ] Step 39: Implement consultation package selection
-  - **Task**: Create components for selecting consultation package
+- [ ] Step 39: Implement consultation package selection components/screen
+  - **Task**: Create components for selecting a consultation package and applying promo codes
   - **Files**:
-    - `src/components/consultation/PackageSelector.tsx`: Package selection component
-    - `src/components/consultation/PromoCodeInput.tsx`: Promo code input component
-    - `src/app/(protected)/consultations/new/packages/page.tsx`: Package selection page
+    - `src/Components/Consultation/PackageSelector.tsx`: Package selection component
+    - `src/Components/Consultation/PromoCodeInput.tsx`: Promo code input component
+    - `src/Screens/Consultation/New/PackagesScreen.tsx`: Package selection screen (example path)
   - **Step Dependencies**: Step 33, Step 38
-  - **User Instructions**: None
+  - **User Instructions**: Fetch available packages/prices.
 
-- [ ] Step 40: Implement Flip.id payment integration
-  - **Task**: Create components and API routes for Flip.id payment integration
+- [ ] Step 40: Implement Flip.id payment integration (via Backend & WebView/Linking)
+  - **Task**: Create components, screens, and backend functions for Flip.id payment integration
   - **Files**:
-    - `src/components/payment/PaymentInitiator.tsx`: Payment initiation component
-    - `src/components/payment/PaymentConfirmation.tsx`: Payment confirmation component
-    - `src/app/api/payments/initiate/route.ts`: Payment initiation API
-    - `src/app/api/payments/callback/route.ts`: Payment callback API
-    - `src/app/(protected)/consultations/new/payment/page.tsx`: Payment page
-    - `src/app/(protected)/consultations/new/payment/success/page.tsx`: Payment success page
-    - `src/app/(protected)/consultations/new/payment/failure/page.tsx`: Payment failure page
+    - `src/Components/Payment/PaymentGateway.tsx`: Component to handle payment interaction (e.g., opening WebView or deeplink)
+    - `supabase/functions/initiate-payment/index.ts`: Example Supabase Function for payment initiation API (returns payment URL/token)
+    - `supabase/functions/payment-callback/index.ts`: Example Supabase Function for handling Flip.id webhook callbacks
+    - `src/Screens/Consultation/New/PaymentScreen.tsx`: Screen hosting the payment gateway component (example path)
+    - `src/Screens/Consultation/New/PaymentStatusScreen.tsx`: Screen to show after payment attempt (success/failure, listens for updates) (example path)
   - **Step Dependencies**: Step 38
-  - **User Instructions**: 
+  - **User Instructions**:
     1. Register for a Flip.id developer account
     2. Obtain API keys from Flip.id dashboard
-    3. Add the keys to your `.env.local` file
-    4. Configure webhook URLs in Flip.id dashboard
+    3. Add keys securely as Supabase secrets
+    4. Configure webhook URLs in Flip.id dashboard to point to your callback function
+    5. Handle opening payment URLs (e.g., `expo-web-browser`) and potentially deep linking back to the app.
 
-- [ ] Step 41: Implement transaction history components
-  - **Task**: Create components for viewing transaction history
+- [ ] Step 41: Implement transaction history components/screens
+  - **Task**: Create components and screens for viewing user's transaction history
   - **Files**:
-    - `src/components/payment/TransactionItem.tsx`: Transaction item component
-    - `src/components/payment/TransactionList.tsx`: Transaction list component
-    - `src/components/payment/ReceiptDownload.tsx`: Receipt download component
-    - `src/app/(protected)/profile/transactions/page.tsx`: Transaction history page
-    - `src/app/(protected)/profile/transactions/[id]/page.tsx`: Transaction detail page
-  - **Step Dependencies**: Step 38
-  - **User Instructions**: None
+    - `src/Components/Payment/TransactionItem.tsx`: Transaction item component
+    - `src/Components/Payment/TransactionList.tsx`: Transaction list component
+    - `src/Screens/Profile/TransactionsScreen.tsx`: Transaction history screen (example path)
+    - `src/Screens/Profile/TransactionDetailScreen.tsx`: Transaction detail screen (example path)
+  - **Step Dependencies**: Step 38 (Data Source)
+  - **User Instructions**: Fetch transaction records associated with the user from Supabase.
 
 ## EPIC - History (HIST)
 
-- [ ] Step 42: Implement consultation history components
-  - **Task**: Create components for viewing consultation history
+- [ ] Step 42: Implement consultation history components/screen
+  - **Task**: Create components for viewing the list of past consultations
   - **Files**:
-    - `src/components/consultation/ConsultationHistoryItem.tsx`: History item component
-    - `src/components/consultation/ConsultationHistoryList.tsx`: History list component
-    - `src/app/(protected)/riwayat/page.tsx`: History page
-  - **Step Dependencies**: Step 33
-  - **User Instructions**: None
+    - `src/Components/Consultation/ConsultationHistoryItem.tsx`: History item component
+    - `src/Components/Consultation/ConsultationHistoryList.tsx`: History list component
+    - `src/Screens/Riwayat/RiwayatListScreen.tsx`: History list screen (example path)
+  - **Step Dependencies**: Step 33 (Data Source)
+  - **User Instructions**: Fetch past consultations for the user from Supabase.
 
 - [ ] Step 43: Create consultation search component
-  - **Task**: Implement search functionality for consultations
+  - **Task**: Implement search functionality for consultations within the history screen
   - **Files**:
-    - `src/components/consultation/ConsultationSearch.tsx`: Search component
-    - `src/hooks/useConsultationSearch.ts`: Hook for searching consultations
+    - `src/Components/Consultation/ConsultationSearch.tsx`: Search input component
+    - `src/Hooks/useConsultationSearch.ts`: Hook handling search logic (filters fetched data or queries Supabase)
   - **Step Dependencies**: Step 42
-  - **User Instructions**: None
+  - **User Instructions**: Add search input and wire it to filter the history list.
 
-- [ ] Step 44: Implement consultation detail page
-  - **Task**: Create the detail page for viewing a consultation
+- [ ] Step 44: Implement consultation detail screen (from history)
+  - **Task**: Create the detail screen for viewing a past consultation (likely reusing ChatScreen components)
   - **Files**:
-    - `src/app/(protected)/riwayat/[id]/page.tsx`: Consultation detail page
-    - `src/components/consultation/ConsultationDetail.tsx`: Consultation detail component
-  - **Step Dependencies**: Step 42
-  - **User Instructions**: None
+    - `src/Screens/Riwayat/RiwayatDetailScreen.tsx`: Past consultation detail screen (example path, might navigate to ChatScreen with specific data/mode)
+    - `src/Components/Consultation/ConsultationSummary.tsx`: Component showing consultation summary/details
+  - **Step Dependencies**: Step 42, Step 37 (Chat Components)
+  - **User Instructions**: Allow users to view the details and chat history of a past consultation.
 
-- [ ] Step 45: Implement restart session functionality
-  - **Task**: Create components and logic for restarting a completed consultation
+- [ ] Step 45: Implement restart session functionality (via Backend)
+  - **Task**: Create UI elements and backend logic for restarting a completed consultation flow
   - **Files**:
-    - `src/components/consultation/RestartSessionButton.tsx`: Restart session button
-    - `src/services/consultation.ts`: Update with restart session function
-    - `src/app/api/consultations/restart/route.ts`: Restart session API
+    - `src/Components/Consultation/RestartSessionButton.tsx`: Button displayed on history items/details
+    - `src/Services/consultation.ts`: Add function to call restart endpoint
+    - `supabase/functions/restart-consultation/index.ts`: Example Supabase Function containing logic to create a new consultation based on an old one
   - **Step Dependencies**: Step 33, Step 42
-  - **User Instructions**: None
+  - **User Instructions**: Implement button and backend logic for session restart.
 
 ## EPIC - Notification (NTFC)
 
-- [ ] Step 46: Set up Resend API for email notifications
-  - **Task**: Integrate Resend API for sending transactional emails
+- [x] Step 46: Set up Resend API for email notifications (via Backend)
+  - **Task**: Integrate Resend API for sending transactional emails via Supabase Functions
   - **Files**:
-    - `src/lib/resend.ts`: Resend client configuration
-    - `src/services/email.ts`: Email service functions
-    - `src/app/api/emails/send/route.ts`: Email sending API
-    - `src/app/api/emails/templates/[template]/route.ts`: Email template API
+    - `src/Services/email.ts`: Service function (calling backend, optional)
+    - `supabase/functions/send-email/index.ts`: Example Supabase Function for sending email via Resend
   - **Step Dependencies**: Step 1
-  - **User Instructions**: 
+  - **User Instructions**:
     1. Register for Resend API access at https://resend.com/
-    2. Obtain API key and add it to your `.env.local` file
-    3. Create email templates in Resend dashboard
+    2. Obtain API key and add it securely as a Supabase secret
+    3. Trigger email function from other backend logic (e.g., after signup, payment confirmation).
 
-- [ ] Step 47: Create notification context and API
-  - **Task**: Create context and API functions for notifications
+- [ ] Step 47: Create notification context and API/Service
+  - **Task**: Create context and service functions for managing (fetching, marking read) in-app notifications stored in Supabase
   - **Files**:
-    - `src/contexts/NotificationContext.tsx`: Notification context provider
-    - `src/hooks/useNotification.ts`: Custom hook for notification operations
-    - `src/services/notification.ts`: Notification API service
-    - `src/types/notification.ts`: Notification types
+    - `src/Contexts/NotificationContext.tsx`: Notification context provider (example path, optional)
+    - `src/Hooks/useNotification.ts`: Custom hook for notification operations (optional)
+    - `src/Services/notification.ts`: Notification service functions (CRUD via Supabase)
+    - `src/Types/notification.ts`: Notification types
   - **Step Dependencies**: Step 2, Step 11
-  - **User Instructions**: None
+  - **User Instructions**: Define functions to manage notification records in Supabase.
 
-- [ ] Step 48: Implement in-app notification components
-  - **Task**: Create components for displaying in-app notifications
+- [ ] Step 48: Implement in-app notification components/screen
+  - **Task**: Create components for displaying in-app notifications (badge, list) and a dedicated screen
   - **Files**:
-    - `src/components/notification/NotificationBadge.tsx`: Notification badge component
-    - `src/components/notification/NotificationItem.tsx`: Notification item component
-    - `src/components/notification/NotificationList.tsx`: Notification list component
-    - `src/app/(protected)/profile/notifications/page.tsx`: Notifications page
+    - `src/Components/Notification/NotificationBadge.tsx`: Notification badge component (e.g., on profile/tab icon)
+    - `src/Components/Notification/NotificationItem.tsx`: Notification item component
+    - `src/Components/Notification/NotificationList.tsx`: Notification list component
+    - `src/Screens/Profile/NotificationsScreen.tsx`: Notifications screen (example path)
   - **Step Dependencies**: Step 47
-  - **User Instructions**: None
+  - **User Instructions**: Fetch notifications using the service/hook and display them. Implement logic for marking as read.
 
-- [ ] Step 49: Implement push notification integration
-  - **Task**: Integrate push notifications for doctor replies
+- [ ] Step 49: Implement push notification integration (Expo Push Notifications via Backend)
+  - **Task**: Integrate Expo Push Notifications triggered by backend events (e.g., doctor reply)
   - **Files**:
-    - `src/services/pushNotification.ts`: Push notification service
-    - `src/app/api/notifications/push/route.ts`: Push notification API
-  - **Step Dependencies**: Step 47
-  - **User Instructions**: None
+    - `src/Services/pushNotification.ts`: Service for registering device token and handling received notifications (using `expo-notifications`)
+    - `supabase/functions/send-push-notification/index.ts`: Example Supabase Function to trigger push notifications via Expo's push API
+  - **Step Dependencies**: Step 47 (To know *what* notification to send)
+  - **User Instructions**:
+      1. Set up Expo Push Notification credentials (FCM/APNS) via EAS CLI (`eas credentials`).
+      2. Install `expo-notifications`: `npx expo install expo-notifications`.
+      3. Implement logic to get push token from device and store it (e.g., in user profile).
+      4. Trigger backend function to send push notifications when needed.
 
 ## EPIC - Profile Tab and Settings (PRFL)
 
-- [ ] Step 50: Implement user profile components
-  - **Task**: Create components for viewing and editing user profile
+- [x] Step 50: Implement user profile components/screens
+  - **Task**: Create components and screens for viewing and editing user profile information
   - **Files**:
-    - `src/components/profile/UserProfileForm.tsx`: User profile form
-    - `src/components/profile/ProfilePhotoUpload.tsx`: Profile photo upload component
-    - `src/app/(protected)/profile/page.tsx`: Profile page
-    - `src/app/(protected)/profile/edit/page.tsx`: Edit profile page
-  - **Step Dependencies**: Step 11
-  - **User Instructions**: None
+    - `src/Components/Profile/UserProfileForm.tsx`: User profile form component
+    - `src/Components/Profile/ProfilePhotoUpload.tsx`: Profile photo upload component (using `expo-image-picker`)
+    - `src/Screens/Profile/ProfileScreen.tsx`: Profile screen displaying user info (example path)
+    - `src/Screens/Profile/EditProfileScreen.tsx`: Screen for editing profile info using the form (example path)
+  - **Step Dependencies**: Step 11, Step 6 (Storage for photos), Step 2 (Database for profile data)
+  - **User Instructions**: Install image picker: `npx expo install expo-image-picker`. Request permissions. Handle image upload to Supabase Storage.
 
-- [ ] Step 51: Implement settings components
-  - **Task**: Create components for application settings
+- [ ] Step 51: Implement settings components/screen
+  - **Task**: Create components and a screen for application settings (Notifications, Password Change, Language)
   - **Files**:
-    - `src/components/settings/NotificationSettings.tsx`: Notification settings component
-    - `src/components/settings/PasswordChangeForm.tsx`: Password change form
-    - `src/app/(protected)/profile/settings/page.tsx`: Settings page
-  - **Step Dependencies**: Step 8, Step 47
-  - **User Instructions**: None
+    - `src/Components/Settings/NotificationSettings.tsx`: Notification settings component (if applicable)
+    - `src/Components/Settings/PasswordChangeForm.tsx`: Password change form component
+    - `src/Screens/Profile/SettingsScreen.tsx`: Settings screen (example path, links to other settings like Language - Step 9)
+  - **Step Dependencies**: Step 8 (Language), Step 47 (Notifications), Step 11 (Auth for password change)
+  - **User Instructions**: Group various settings options on one screen.
 
-- [ ] Step 52: Implement feedback and rating components
-  - **Task**: Create components for collecting user feedback and ratings
+- [ ] Step 52: Implement feedback and rating components/screen
+  - **Task**: Create components and screen for collecting user feedback and ratings post-consultation
   - **Files**:
-    - `src/components/feedback/FeedbackForm.tsx`: Feedback form component
-    - `src/components/feedback/RatingStars.tsx`: Rating stars component
-    - `src/components/feedback/NPSFeedback.tsx`: NPS feedback component
-    - `src/app/(protected)/consultations/[id]/feedback/page.tsx`: Consultation feedback page
-  - **Step Dependencies**: Step 33
-  - **User Instructions**: None
+    - `src/Components/Feedback/FeedbackForm.tsx`: Feedback form component
+    - `src/Components/Feedback/RatingStars.tsx`: Rating stars component
+    - `src/Screens/Consultation/FeedbackScreen.tsx`: Consultation feedback screen (shown after consultation ends) (example path)
+  - **Step Dependencies**: Step 33 (To link feedback to a consultation)
+  - **User Instructions**: Implement UI for feedback collection and logic to save it to Supabase.
 
 ## Testing
 
-- [ ] Step 53: Set up testing framework
-  - **Task**: Configure Jest and React Testing Library for testing
+- [ ] Step 53: Set up testing framework (Jest + React Native Testing Library)
+  - **Task**: Configure Jest and React Native Testing Library for unit and integration testing
   - **Files**:
-    - `jest.config.js`: Jest configuration
-    - `src/utils/test-utils.tsx`: Test utilities
-    - `.github/workflows/test.yml`: GitHub Actions workflow for testing
+    - `jest.config.js`: Jest configuration (Expo SDK usually includes a base config)
+    - `src/Utils/test-utils.tsx`: Test utilities (custom render function with providers)
+    - `.github/workflows/test.yml`: GitHub Actions workflow for running tests
   - **Step Dependencies**: Step 1
-  - **User Instructions**: Run `npm install --save-dev jest @testing-library/react @testing-library/jest-dom`
+  - **User Instructions**: Install testing libraries: `npm install --save-dev jest @testing-library/react-native @testing-library/jest-native jest-expo`. Follow Expo/RNTL setup guides.
 
-- [ ] Step 54: Create unit tests for core components
-  - **Task**: Write unit tests for core components and utilities
+- [ ] Step 54: Create unit tests for core components, hooks, and services
+  - **Task**: Write unit tests for individual components, hooks, and utility/service functions
   - **Files**:
-    - `src/components/auth/__tests__/SignInForm.test.tsx`: Sign-in form tests
-    - `src/components/auth/__tests__/SignUpForm.test.tsx`: Sign-up form tests
-    - `src/hooks/__tests__/useAuth.test.ts`: Auth hook tests
-    - `src/utils/__tests__/validation.test.ts`: Validation utility tests
+    - `src/Components/Auth/__tests__/SignInForm.test.tsx`: Example test file
+    - `src/Hooks/__tests__/useAuth.test.ts`: Example test file
+    - `src/Services/__tests__/child.test.ts`: Example test file (mocking Supabase client)
   - **Step Dependencies**: Step 53
-  - **User Instructions**: None
+  - **User Instructions**: Focus on testing component rendering, hook logic, and service function behavior in isolation. Run tests using `npm test` or `yarn test`.
 
 - [ ] Step 55: Create integration tests for key flows
-  - **Task**: Write integration tests for key user flows
+  - **Task**: Write integration tests for key user flows (e.g., Auth, New Consultation) using React Native Testing Library
   - **Files**:
-    - `src/integration-tests/auth-flow.test.tsx`: Authentication flow tests
-    - `src/integration-tests/consultation-flow.test.tsx`: Consultation flow tests
-    - `src/integration-tests/payment-flow.test.tsx`: Payment flow tests
+    - `src/__integration_tests__/auth-flow.test.tsx`: Example integration test file
+    - `src/__integration_tests__/consultation-flow.test.tsx`: Example integration test file
   - **Step Dependencies**: Step 53
-  - **User Instructions**: None
+  - **User Instructions**: Structure tests to simulate user interaction across multiple components/screens within the testing environment.
 
 ## Deployment
 
-- [ ] Step 56: Configure deployment to Vercel
-  - **Task**: Set up deployment configuration for Vercel
+- [ ] Step 56: Configure deployment via EAS (Expo Application Services)
+  - **Task**: Set up Expo Application Services (EAS) for building and submitting the app to stores
   - **Files**:
-    - `vercel.json`: Vercel configuration
-    - `.github/workflows/deploy.yml`: GitHub Actions workflow for deployment
+    - `eas.json`: EAS configuration file (build profiles, credentials)
+    - `.github/workflows/deploy.yml`: GitHub Actions workflow for triggering EAS builds/submits (optional)
   - **Step Dependencies**: All previous steps
-  - **User Instructions**: 
-    1. Create a Vercel account at https://vercel.com/
-    2. Connect your GitHub repository to Vercel
-    3. Configure environment variables in Vercel dashboard
-    4. Deploy the application
+  - **User Instructions**:
+    1. Install EAS CLI: `npm install -g eas-cli`
+    2. Log in: `eas login`
+    3. Configure project: `eas init`, `eas configure` (select platforms, set up credentials)
+    4. Build app: `eas build --platform [android|ios|all] --profile <profile_name>`
+    5. Submit to stores: `eas submit --platform [android|ios] --latest` or `--id <build_id>`
+    6. Configure environment variables securely using EAS Secrets (`eas secret:create`, `eas secret:list`).
