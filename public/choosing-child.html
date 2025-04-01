@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AhliAnak - Consultation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+            color: #000000;
+        }
+        .phone-frame {
+            width: 375px;
+            height: 812px;
+            border-radius: 40px;
+            overflow: hidden;
+            position: relative;
+            background: #f5f5f5;
+            margin: 2rem auto;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+        }
+        .modal {
+            width: 100%;
+            max-width: 335px;
+            background: white;
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        .primary-button {
+            background: #7E22CE;
+            border-radius: 100px;
+            color: white;
+            font-weight: 500;
+            padding: 16px;
+            width: 100%;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+        .primary-button:active {
+            transform: scale(0.98);
+            opacity: 0.9;
+        }
+        .child-card {
+            border-radius: 16px;
+            border: 1px solid #E5E7EB;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+        .child-card.selected {
+            border-color: #7E22CE;
+            background-color: #F5F3FF;
+        }
+        .child-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+            margin-right: 12px;
+        }
+        .avatar-1 {
+            background: #7E22CE;
+        }
+        .avatar-2 {
+            background: #2563EB;
+        }
+        .avatar-3 {
+            background: #EC4899;
+        }
+        .avatar-general {
+            background: #10B981;
+        }
+        .circle-number {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background-color: #F3F4F6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+            color: #000;
+            margin-right: 12px;
+        }
+        .close-button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #F3F4F6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 16px;
+            right: 16px;
+        }
+        .back-button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #F3F4F6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 16px;
+            left: 16px;
+        }
+        .record-button {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #7E22CE;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 24px auto;
+            box-shadow: 0 4px 10px rgba(126, 34, 206, 0.3);
+        }
+        .record-button:active {
+            transform: scale(0.95);
+        }
+        .recording-wave {
+            height: 80px;
+            background: #F5F3FF;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        .wave-bar {
+            width: 3px;
+            background-color: #7E22CE;
+            margin: 0 2px;
+            border-radius: 3px;
+            animation: wave 1s infinite ease-in-out;
+        }
+        @keyframes wave {
+            0%, 100% { height: 10px; }
+            50% { height: 40px; }
+        }
+        .wave-bar:nth-child(2n) {
+            animation-delay: 0.2s;
+        }
+        .wave-bar:nth-child(3n) {
+            animation-delay: 0.4s;
+        }
+        .wave-bar:nth-child(4n) {
+            animation-delay: 0.6s;
+        }
+        .wave-bar:nth-child(5n) {
+            animation-delay: 0.8s;
+        }
+        .transcription-box {
+            border-radius: 16px;
+            border: 1px solid #E5E7EB;
+            background-color: #F9FAFB;
+            padding: 16px;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-top: 16px;
+        }
+        .followup-question {
+            border-radius: 16px;
+            border: 1px solid #E5E7EB;
+            padding: 16px;
+            margin-bottom: 12px;
+            transition: all 0.2s ease;
+        }
+        .followup-question.selected {
+            border-color: #7E22CE;
+            background-color: #F5F3FF;
+        }
+        .tab-button {
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-right: 8px;
+        }
+        .tab-button.active {
+            background-color: #7E22CE;
+            color: white;
+        }
+        .tab-button:not(.active) {
+            background-color: #F3F4F6;
+            color: #000000;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-frame">
+        <!-- Blurred background content -->
+        <div class="p-6 opacity-20">
+            <div class="flex items-center mb-6">
+                <div class="w-12 h-12 rounded-full bg-purple-600 mr-3"></div>
+                <div>
+                    <h1 class="text-xl font-bold">AhliAnak</h1>
+                    <p class="text-sm">Konsultasi Kesehatan Anak</p>
+                </div>
+            </div>
+            
+            <div class="mb-6">
+                <h2 class="text-lg font-semibold mb-3">Konsultasi Baru</h2>
+                <div class="bg-black text-white rounded-full py-3 px-6 mb-3 text-center">
+                    Konsultasi Suara
+                </div>
+                <div class="bg-black text-white rounded-full py-3 px-6 text-center">
+                    Konsultasi Chat
+                </div>
+            </div>
+            
+            <div class="bg-purple-600 text-white p-6 rounded-2xl">
+                <h3 class="font-semibold mb-2">Konsultasi Cepat</h3>
+                <p class="text-sm mb-4">Dapatkan jawaban dari dokter anak dalam 15 menit</p>
+                <div class="flex justify-between">
+                    <span class="text-sm">Mulai dari Rp 20.000</span>
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal Overlay -->
+        <div class="modal-overlay">
+            <!-- Step 1: Consultation Focus Modal -->
+            <div class="modal">
+                <div class="text-center mb-8">
+                    <div class="w-12 h-12 rounded-full bg-purple-600 flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-bold mb-2">Pilih anak untuk konsultasi</h2>
+                    <p class="text-gray-500">Pilih anak yang membutuhkan konsultasi kesehatan atau pilih topik umum parenting</p>
+                </div>
+                
+                <div class="mb-6">
+                    <div class="child-card selected">
+                        <div class="child-avatar avatar-1">AR</div>
+                        <div class="flex-1">
+                            <h3 class="font-medium">Aira Ramadhani</h3>
+                            <p class="text-xs text-gray-500">2 tahun 3 bulan • 12.5 kg</p>
+                        </div>
+                        <svg class="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                    
+                    <div class="child-card">
+                        <div class="child-avatar avatar-2">BM</div>
+                        <div class="flex-1">
+                            <h3 class="font-medium">Bayu Mahendra</h3>
+                            <p class="text-xs text-gray-500">4 tahun 1 bulan • 16.8 kg</p>
+                        </div>
+                    </div>
+                    
+                    <div class="child-card">
+                        <div class="child-avatar avatar-3">KA</div>
+                        <div class="flex-1">
+                            <h3 class="font-medium">Kayla Azzahra</h3>
+                            <p class="text-xs text-gray-500">8 bulan • 7.2 kg</p>
+                        </div>
+                    </div>
+                    
+                    <div class="child-card">
+                        <div class="child-avatar avatar-general">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-medium">Topik Umum Parenting</h3>
+                            <p class="text-xs text-gray-500">Pertanyaan umum tentang pengasuhan anak</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="primary-button">Lanjutkan</button>
+                
+                <div class="close-button">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </div>
+            </div>
+            
+            <!-- Step 2: Voice Recording Modal (hidden by default) -->
+            <div class="modal hidden">
+                <div class="back-button">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                </div>
+                
+                <div class="close-button">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </div>
+                
+                <h2 class="text-2xl font-bold text-center mb-2">Rekam pertanyaan Anda</h2>
+                <p class="text-gray-500 text-center mb-6">Tekan tombol mikrofon dan jelaskan keluhan atau pertanyaan Anda</p>
+                
+                <div class="recording-wave">
+                    <div class="wave-bar h-20"></div>
+                    <div class="wave-bar h-10"></div>
+                    <div class="wave-bar h-30"></div>
+                    <div class="wave-bar h-15"></div>
+                    <div class="wave-bar h-25"></div>
+                    <div class="wave-bar h-10"></div>
+                    <div class="wave-bar h-20"></div>
+                    <div class="wave-bar h-30"></div>
+                    <div class="wave-bar h-15"></div>
+                    <div class="wave-bar h-25"></div>
+                    <div class="wave-bar h-10"></div>
+                    <div class="wave-bar h-20"></div>
+                    <div class="wave-bar h-30"></div>
+                    <div class="wave-bar h-15"></div>
+                    <div class="wave-bar h-25"></div>
+                </div>
+                
+                <div class="text-center text-purple-600 font-medium mb-4">00:32</div>
+                
+                <div class="flex justify-center space-x-4 mb-6">
+                    <button class="record-button">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="mb-6">
+                    <h3 class="text-sm font-medium mb-2">Transkripsi</h3>
+                    <div class="transcription-box">
+                        Anak saya Aira sudah 3 hari ini demam, suhu badannya sekitar 38 derajat. Dia juga batuk kering dan hidungnya berair. Saya sudah memberikan obat penurun panas tapi demamnya masih naik turun. Apakah ini gejala flu biasa atau ada yang perlu dikhawatirkan? Kapan sebaiknya saya membawa dia ke dokter?
+                    </div>
+                </div>
+                
+                <button class="primary-button">Lanjutkan</button>
+            </div>
+            
+            <!-- Step 3: Followup Questions Modal (hidden by default) -->
+            <div class="modal hidden">
+                <div class="back-button">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                </div>
+                
+                <div class="close-button">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </div>
+                
+                <h2 class="text-2xl font-bold text-center mb-2">Pertanyaan tambahan</h2>
+                <p class="text-gray-500 text-center mb-6">Pilih pertanyaan tambahan untuk membantu dokter memberikan diagnosis yang lebih akurat</p>
+                
+                <div class="mb-6">
+                    <div class="followup-question selected">
+                        <div class="flex items-center">
+                            <div class="circle-number">1</div>
+                            <h3 class="text-sm font-medium">Apakah ada riwayat alergi atau asma?</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="followup-question">
+                        <div class="flex items-center">
+                            <div class="circle-number">2</div>
+                            <h3 class="text-sm font-medium">Apakah anak masih mau makan dan minum seperti biasa?</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="followup-question selected">
+                        <div class="flex items-center">
+                            <div class="circle-number">3</div>
+                            <h3 class="text-sm font-medium">Apakah ada anggota keluarga lain yang sedang sakit?</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="followup-question">
+                        <div class="flex items-center">
+                            <div class="circle-number">4</div>
+                            <h3 class="text-sm font-medium">Apakah ada ruam atau bintik-bintik di kulit?</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="followup-question">
+                        <div class="flex items-center">
+                            <div class="circle-number">5</div>
+                            <h3 class="text-sm font-medium">Apakah anak terlihat lemas atau tidak aktif?</h3>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="primary-button">Kirim Konsultasi</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
