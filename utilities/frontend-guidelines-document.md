@@ -11,7 +11,7 @@ Our frontend is built using a modern cross-platform stack designed for performan
 - **React Native:** Provides cross-platform native UI components
 - **Expo:** Simplifies development, testing, and deployment across platforms
 - **TypeScript:** Ensures type safety and reduces runtime errors
-- **Gluestack UI v2:** Component library providing accessible, customizable UI primitives
+- **React Native UI Components:** Built-in components enhanced with custom styling
 - **React Navigation:** Handles stack, tab, and drawer navigation with native transitions
 - **Markdown Rendering:** Custom implementation for structured chat interfaces
 - **Voice Recording/Playback:** Native modules for high-quality audio processing
@@ -38,7 +38,7 @@ These principles are reflected throughout our UI, ensuring that layouts, interac
 
 ## 3. Styling and Theming
 
-Our styling approach uses React Native's StyleSheet system combined with Gluestack UI's theming capabilities to maintain visual consistency across the app.
+Our styling approach uses React Native's StyleSheet system and custom theme providers to maintain visual consistency across the app.
 
 **Color Palette:**
 
@@ -130,9 +130,9 @@ Our styling approach uses React Native's StyleSheet system combined with Gluesta
   - Color: Matches text color or specific semantic meaning
   - Touch target: Minimum 44x44px
 
-**Gluestack UI Configuration:**
-- Custom theme extending Gluestack's base theme
-- Component variants aligned with our design system
+**Component Styling Configuration:**
+- Custom theme using React Native's StyleSheet
+- Component variants defined in central theme constants
 - Custom component configurations stored in a centralized theme file
 
 ## 4. Component Structure
@@ -171,7 +171,7 @@ The AhliAnak frontend is organized in a modular, component-based architecture wi
 
 **Component Hierarchy:**
 
-1. **Atomic Components:** Basic UI elements using Gluestack primitives (Box, Text, Button)
+1. **Atomic Components:** Basic UI elements using React Native core components (View, Text, Pressable)
 2. **Composite Components:** Combinations of atomic components (ProfileCard, ConsultationItem)
 3. **Feature Components:** Complex components with business logic (VoiceRecorder, DoctorList)
 4. **Screen Components:** Full screens containing multiple feature components
@@ -387,7 +387,7 @@ To ensure exceptional performance on a wide range of devices, especially conside
 - Implement virtualized lists (FlatList, SectionList) for long scrollable content
 - Lazy load non-critical screens and components
 - Minimize re-renders using careful prop management
-- Leverage Gluestack UI's optimized primitives
+- Leverage React Native's optimized core components
 
 **Asset Optimization:**
 
@@ -527,7 +527,7 @@ Our deployment process ensures consistent quality across releases:
 
 ## 18. Conclusion
 
-The AhliAnak frontend is designed to deliver a voice-first, trusted mobile experience for Indonesian mothers seeking pediatric healthcare advice. By following these guidelines and leveraging Gluestack UI v2 for our component system, we ensure our application remains:
+The AhliAnak frontend is designed to deliver a voice-first, trusted mobile experience for Indonesian mothers seeking pediatric healthcare advice. By following these guidelines and leveraging React Native's core components for our UI system, we ensure our application remains:
 
 - Performant across a wide range of devices
 - Trustworthy for handling sensitive health information

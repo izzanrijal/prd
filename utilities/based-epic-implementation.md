@@ -30,14 +30,14 @@
     4. Add the keys to your `.env` file
     5. Install Supabase client with `npm install @supabase/supabase-js`
 
-- [ ] Step 3: Set up UI Library (e.g., Gluestack UI, NativeWind, Tamagui)
-  - **Task**: Install and configure a UI component library for the application
+- [ ] Step 3: Set up React Native core modules and components
+  - **Task**: Configure and use built-in React Native components and styling system
   - **Files**:
-    - `src/Config/ui.config.ts` or similar: UI library theme/configuration (example path)
-    - `App.tsx` or `src/providers.tsx`: Provider wrapper for UI library integration
-    - `src/Config/theme.ts`: Custom theme extension (example path)
+    - `src/Config/theme.ts`: Theme constants for consistent styling
+    - `App.tsx` or `src/providers.tsx`: Provider wrapper for app-wide configurations
+    - `src/Components/UI/`: Directory for reusable custom UI components
   - **Step Dependencies**: Step 1
-  - **User Instructions**: Install chosen UI library (e.g., `npm install @gluestack-ui/themed`, setup NativeWind, etc.)
+  - **User Instructions**: Use React Native's core components and styling system instead of external UI libraries
 
 - [ ] Step 4: Set up database schema in Supabase
   - **Task**: Create database tables and relationships in Supabase as defined in the schema
@@ -72,7 +72,7 @@
     - `src/Navigation/BottomTabNavigator.tsx`: Bottom tab navigator (example)
     - `App.tsx`: Root component integrating navigation
     - `src/Components/Layout/...`: Reusable layout components
-  - **Step Dependencies**: Step 3 (UI library), Step 1 (Requires navigation library)
+  - **Step Dependencies**: Step 3 (React Native core components), Step 1 (Requires navigation library)
   - **User Instructions**: Install React Navigation libraries (`npm install @react-navigation/native @react-navigation/native-stack @react-navigation/bottom-tabs react-native-screens react-native-safe-area-context`)
 
 ## EPIC - Internationalization (INT)

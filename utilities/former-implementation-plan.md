@@ -31,14 +31,14 @@
     4. Add the keys to your `.env.local` file
     5. Install Supabase client with `npm install @supabase/supabase-js`
 
-- [ ] Step 3: Set up Gluestack UI integration
-  - **Task**: Install and configure Gluestack UI components for the application
+- [ ] Step 3: Set up React Native core modules and components
+  - **Task**: Configure and set up essential React Native modules and components for the application
   - **Files**:
-    - `src/styles/gluestack-ui.config.ts`: Gluestack UI theme configuration
-    - `src/app/providers.tsx`: Provider wrapper for Gluestack UI
-    - `src/styles/theme.ts`: Custom theme extension
+    - `src/styles/theme.ts`: Theme configuration for consistent styling
+    - `src/app/providers.tsx`: Provider wrapper for app-wide configurations
+    - `src/components/ui/`: Directory for reusable UI components
   - **Step Dependencies**: Step 1
-  - **User Instructions**: Run `npm install @gluestack-ui/themed`
+  - **User Instructions**: Leverage React Native's built-in components and styling system
 
 - [ ] Step 4: Configure internationalization with next-intl
   - **Task**: Set up internationalization support with next-intl for Bahasa Indonesia and English
@@ -129,7 +129,7 @@
 
 ## Core Layout and Navigation
 
-- [ ] Step 12: Create base layout components
+- [ ] Step 12: Create base layout components and navigation
   - **Task**: Create layout components for the application structure
   - **Files**:
     - `src/components/layout/AppLayout.tsx`: Main app layout with navbar
@@ -137,7 +137,7 @@
     - `src/components/layout/BottomNavbar.tsx`: Bottom navigation bar
     - `src/app/layout.tsx`: Root layout with providers
   - **Step Dependencies**: Step 3
-  - **User Instructions**: None
+  - **User Instructions**: Use React Native's core components for layouts and navigation
 
 - [ ] Step 13: Implement bottom navigation bar
   - **Task**: Create the bottom navbar with 5 tabs as per the design
